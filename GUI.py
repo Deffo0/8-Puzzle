@@ -21,6 +21,7 @@ moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
 
 begin = False
 board = ai.initial_state()
+stack = ai.DFS(board)
 
 while True:
 
@@ -88,16 +89,19 @@ while True:
         pygame.draw.rect(screen, white, stepButton)
         screen.blit(step, stepRect)
 
+        # Find solution and get steps stack
         # Check for AI move
         # Check if step button is clicked
         click, _, _ = pygame.mouse.get_pressed()
         if click == 1:
             mouse = pygame.mouse.get_pos()
             if stepButton.collidepoint(mouse) and not the_end:
-                time.sleep(0.2)
-                move, zero = ai.DFS(board)
-                board = ai.result(board, move, zero)
-
+                #if stack == None :
+                #To be implemented
+                #display a message saying no solution to this puzzle
+                time.sleep(0.5)
+                board = stack[-1].grid
+                stack.pop()
         if the_end:
             againButton = pygame.Rect(width / 3, height - 65, width / 3, 50)
             again = mediumFont.render("Start Again", True, black)
