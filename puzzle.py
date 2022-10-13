@@ -1,6 +1,7 @@
-import pygame
 import sys
 import time
+
+import pygame
 
 import agent as ai
 
@@ -18,10 +19,13 @@ smallFont = pygame.font.Font("OpenSans-Regular.ttf", 20)
 mediumFont = pygame.font.Font("OpenSans-Regular.ttf", 28)
 largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
 moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
-
 begin = False
 board = ai.initial_state()
-stack = ai.DFS(board)
+manhattanDistance = ai.ManhattanDistance()
+euclidianDistance = ai.EuclidianDistance()
+
+stack = ai.AStar(board, euclidianDistance)
+
 
 while True:
 
