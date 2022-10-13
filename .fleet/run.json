@@ -1,9 +1,0 @@
-{
-    "configurations": [
-        {
-          "type": "python",
-          "name": "run gui",
-          "arguments": ["GUI.py"],
-        }
-    ]
-}
