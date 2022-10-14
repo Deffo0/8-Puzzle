@@ -10,7 +10,7 @@ board = ai.initial_state()
 manhattanDistance = ai.ManhattanDistance()
 euclidianDistance = ai.EuclidianDistance()
 
-stack = ai.DFS(board)
+stack = ai.AStar(board, euclidianDistance)
 
 pygame.init()
 size = width, height = 600, 400
