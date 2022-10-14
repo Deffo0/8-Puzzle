@@ -6,12 +6,6 @@ import pygame
 import agent as ai
 import builder
 
-board = ai.initial_state()
-manhattanDistance = ai.ManhattanDistance()
-euclidianDistance = ai.EuclidianDistance()
-
-stack = ai.AStar(board, euclidianDistance)
-
 pygame.init()
 size = width, height = 600, 400
 
@@ -28,8 +22,12 @@ largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
 moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
 
 begin = False
+stack = None
+board = ai.initial_state()
+button_builder = builder.ButtonBuilder(screen, pygame)
 
-
+manhattanDistance = ai.ManhattanDistance()
+euclidianDistance = ai.EuclidianDistance()
 
 while True:
 
@@ -86,7 +84,7 @@ while True:
         # Draw game board
         tile_size = 80
         tile_origin = (width / 2 - (1.5 * tile_size),
-                       height / 2 - (1.5 * tile_size))
+                height / 2 - (1.5 * tile_size))
         tiles = []
         for i in range(3):
             row = []
@@ -142,3 +140,4 @@ while True:
                     begin = False
 
     pygame.display.flip()
+    

@@ -19,10 +19,6 @@ class State():
         self.grid = grid
         self.parent_state = parent_state
         self.distance = math.inf
-        self.stringFormat = ""
-        for i in range(3):
-            for j in range(3):
-                self.stringFormat += self.grid[i][j]
 
 
 class StackFrontier:
@@ -70,17 +66,17 @@ def empty_state():
     Returns starting state of the board.
     """
     return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+[EMPTY, EMPTY, EMPTY],
+[EMPTY, EMPTY, EMPTY]]
 
 
 def initial_state():
     """
     Returns starting state of the board.
     """
-    return [["8", "6", "7"],
-            ["2", "5", "4"],
-            ["3", "0", "1"]]
+    return [["1", "0", "2"],
+["3", "4", "5"],
+["6", "7", "8"]]
 
 
 def actions(board):
@@ -132,8 +128,8 @@ def winner(board):
     Returns the winner of the game, if there is one.
     """
     if (board[0][0] == "0" and board[0][1] == "1" and board[0][2] == "2"
-            and board[1][0] == "3" and board[1][1] == "4" and board[1][2] == "5"
-            and board[2][0] == "6" and board[2][1] == "7" and board[2][2] == "8"):
+        and board[1][0] == "3" and board[1][1] == "4" and board[1][2] == "5"
+        and board[2][0] == "6" and board[2][1] == "7" and board[2][2] == "8"):
         return True
     else:
         return False
@@ -179,7 +175,7 @@ def isPresent(state, list_of_states):
     :param list_of_states: List to be searched in
     :return: true if the state already exists in the list
     """
-
+    print(any(l.grid == state.grid for l in list_of_states))
     return any(l.grid == state.grid for l in list_of_states)
 
 
@@ -235,12 +231,12 @@ def DFS(board):
     starting at final state (Goal) and ending at initial_state
     """
     frontier = StackFrontier()
-    visited_states = set()
+    visited_states = []
     init_state = State(board, None)
     frontier.add(init_state)
     while frontier.not_empty():
         state = frontier.pop()
-        visited_states.add(state.stringFormat)
+        visited_states.append(state)
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
@@ -249,7 +245,7 @@ def DFS(board):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if not (next_state.stringFormat in visited_states):
+            if not (isPresent(next_state, visited_states) or isPresent(next_state, frontier.frontier)):
                 frontier.add(next_state)
 
     return None
@@ -263,12 +259,12 @@ def BFS(board):
     starting at final state (Goal) and ending at initial_state
     """
     frontier = QueueFrontier()
-    visited_states = set()
+    visited_states = []
     init_state = State(board, None)
     frontier.add(init_state)
     while frontier.not_empty():
         state = frontier.pop()
-        visited_states.add(state.stringFormat)
+        visited_states.append(state)
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
@@ -277,7 +273,7 @@ def BFS(board):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if not (next_state.stringFormat in visited_states):
+            if not (isPresent(next_state, visited_states) or isPresent(next_state, frontier.frontier)):
                 frontier.add(next_state)
 
     return None
@@ -288,14 +284,16 @@ def AStar(board, function):
     Returns the next action for the current state on the board.
     """
     frontier = heapdict.heapdict()
-    visited_states = set()
+    visited_states = []
     init_state = State(board, None)
     init_state.distance = 0
     frontier[init_state] = calculateHeruistic(init_state, function)
     while frontier.__len__() > 0:
         state, dist = frontier.popitem()
+        print("State ", end="\n")
+        good_print(state.grid)
 
-        visited_states.add(state.stringFormat)
+        visited_states.append(state)
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
@@ -305,7 +303,9 @@ def AStar(board, function):
 
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if not (next_state.stringFormat in visited_states):
+            print("Next State ", end="\n")
+            good_print(next_state.grid)
+            if not (isPresent(next_state, visited_states)):
                 heuristic = calculateHeruistic(next_state, function)
                 if (dist + 1 <= next_state.distance):
                     next_state.parent_state = state
