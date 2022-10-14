@@ -6,6 +6,12 @@ import pygame
 import agent as ai
 import builder
 
+board = ai.initial_state()
+manhattanDistance = ai.ManhattanDistance()
+euclidianDistance = ai.EuclidianDistance()
+
+stack = ai.DFS(board)
+
 pygame.init()
 size = width, height = 600, 400
 
@@ -22,12 +28,8 @@ largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
 moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
 
 begin = False
-stack = None
-board = ai.initial_state()
-button_builder = builder.ButtonBuilder(screen, pygame)
 
-manhattanDistance = ai.ManhattanDistance()
-euclidianDistance = ai.EuclidianDistance()
+
 
 while True:
 

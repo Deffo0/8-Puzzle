@@ -19,6 +19,10 @@ class State():
         self.grid = grid
         self.parent_state = parent_state
         self.distance = math.inf
+        self.stringFormat = ""
+        for i in range(3):
+            for j in range(3):
+                self.stringFormat += self.grid[i][j]
 
 
 class StackFrontier:
@@ -74,9 +78,9 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [["1", "0", "2"],
-            ["3", "4", "5"],
-            ["6", "7", "8"]]
+    return [["8", "6", "7"],
+            ["2", "5", "4"],
+            ["3", "0", "1"]]
 
 
 def actions(board):
@@ -175,7 +179,7 @@ def isPresent(state, list_of_states):
     :param list_of_states: List to be searched in
     :return: true if the state already exists in the list
     """
-    print(any(l.grid == state.grid for l in list_of_states))
+
     return any(l.grid == state.grid for l in list_of_states)
 
 
@@ -231,12 +235,12 @@ def DFS(board):
     starting at final state (Goal) and ending at initial_state
     """
     frontier = StackFrontier()
-    visited_states = []
+    visited_states = set()
     init_state = State(board, None)
     frontier.add(init_state)
     while frontier.not_empty():
         state = frontier.pop()
-        visited_states.append(state)
+        visited_states.add(state.stringFormat)
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
@@ -245,7 +249,7 @@ def DFS(board):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if not (isPresent(next_state, visited_states) or isPresent(next_state, frontier.frontier)):
+            if not (next_state.stringFormat in visited_states):
                 frontier.add(next_state)
 
     return None
@@ -259,12 +263,12 @@ def BFS(board):
     starting at final state (Goal) and ending at initial_state
     """
     frontier = QueueFrontier()
-    visited_states = []
+    visited_states = set()
     init_state = State(board, None)
     frontier.add(init_state)
     while frontier.not_empty():
         state = frontier.pop()
-        visited_states.append(state)
+        visited_states.add(state.stringFormat)
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
@@ -273,7 +277,7 @@ def BFS(board):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if not (isPresent(next_state, visited_states) or isPresent(next_state, frontier.frontier)):
+            if not (next_state.stringFormat in visited_states):
                 frontier.add(next_state)
 
     return None
@@ -284,16 +288,14 @@ def AStar(board, function):
     Returns the next action for the current state on the board.
     """
     frontier = heapdict.heapdict()
-    visited_states = []
+    visited_states = set()
     init_state = State(board, None)
     init_state.distance = 0
     frontier[init_state] = calculateHeruistic(init_state, function)
     while frontier.__len__() > 0:
         state, dist = frontier.popitem()
-        print("State ", end="\n")
-        good_print(state.grid)
 
-        visited_states.append(state)
+        visited_states.add(state.stringFormat)
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
@@ -303,9 +305,7 @@ def AStar(board, function):
 
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            print("Next State ", end="\n")
-            good_print(next_state.grid)
-            if not (isPresent(next_state, visited_states)):
+            if not (next_state.stringFormat in visited_states):
                 heuristic = calculateHeruistic(next_state, function)
                 if (dist + 1 <= next_state.distance):
                     next_state.parent_state = state
