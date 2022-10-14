@@ -103,7 +103,6 @@ while True:
         button_builder.specify_colors(white, black)
         button_builder.specify_text("let the agent take a move", small_font)
         step_button = button_builder.build()
-
         # Find solution and get steps stack
         # Check for AI move
         # Check if step button is clicked
@@ -114,7 +113,7 @@ while True:
                 # if stack == None :
                 # To be implemented
                 # display a message saying no solution to this puzzle
-                time.sleep(0.5)
+                time.sleep(0.1)
                 board = stack[-1].grid
                 stack.pop()
         if the_end:
