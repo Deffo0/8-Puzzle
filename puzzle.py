@@ -4,6 +4,7 @@ import time
 import pygame
 
 import agent as ai
+import builder
 
 pygame.init()
 size = width, height = 600, 400
@@ -19,13 +20,14 @@ smallFont = pygame.font.Font("OpenSans-Regular.ttf", 20)
 mediumFont = pygame.font.Font("OpenSans-Regular.ttf", 28)
 largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
 moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
+
 begin = False
+stack = None
 board = ai.initial_state()
+button_builder = builder.ButtonBuilder(screen, pygame)
+
 manhattanDistance = ai.ManhattanDistance()
 euclidianDistance = ai.EuclidianDistance()
-
-stack = ai.AStar(board, euclidianDistance)
-
 
 while True:
 
@@ -44,19 +46,38 @@ while True:
         titleRect.center = ((width / 2), 50)
         screen.blit(title, titleRect)
 
-        # Draw start button
-        startButton = pygame.Rect((width / 2) - 65, (height / 2), width / 4, 50)
-        start = mediumFont.render("Start", True, black)
-        startRect = start.get_rect()
-        startRect.center = startButton.center
-        pygame.draw.rect(screen, white, startButton)
-        screen.blit(start, startRect)
+        # Draw start buttons
+        button_builder.specify_dimensions(60, (height / 2), width / 4, 30)
+        button_builder.specify_colors(white, black)
+        button_builder.specify_text("Solve DFS", smallFont)
+        solve_DFS_button = button_builder.build()
+
+        button_builder.specify_dimensions((width / 2) - 80, (height / 2), width / 4, 30)
+        button_builder.specify_colors(white, black)
+        button_builder.specify_text("Solve BFS", smallFont)
+        solve_BFS_button = button_builder.build()
+
+        button_builder.specify_dimensions((width / 2) + 80, (height / 2), width / 4, 30)
+        button_builder.specify_colors(white, black)
+        button_builder.specify_text("Solve A*", smallFont)
+        solve_astar_button = button_builder.build()
 
         # Check if button is clicked
         click, _, _ = pygame.mouse.get_pressed()
         if click == 1:
             mouse = pygame.mouse.get_pos()
-            if startButton.collidepoint(mouse):
+            if solve_DFS_button.collidepoint(mouse):
+                stack = ai.DFS(board)
+                time.sleep(0.2)
+                begin = True
+
+            elif solve_BFS_button.collidepoint(mouse):
+                stack = ai.BFS(board)
+                time.sleep(0.2)
+                begin = True
+
+            elif solve_astar_button.collidepoint(mouse):
+                stack = ai.AStar(board, manhattanDistance)
                 time.sleep(0.2)
                 begin = True
     else:
@@ -76,22 +97,20 @@ while True:
                 pygame.draw.rect(screen, white, rect, 3)
 
                 if board[i][j] != ai.EMPTY:
-                    move = moveFont.render(board[i][j], True, white)
-                    moveRect = move.get_rect()
-                    moveRect.center = rect.center
-                    screen.blit(move, moveRect)
+                    cell = moveFont.render(board[i][j], True, white)
+                    cellRect = cell.get_rect()
+                    cellRect.center = rect.center
+                    screen.blit(cell, cellRect)
                 row.append(rect)
             tiles.append(row)
 
         the_end = ai.terminal(board)
 
         # Draw step button
-        stepButton = pygame.Rect((width / 4), (height - 60), width / 2, 50)
-        step = smallFont.render("let the agent take a move", True, black)
-        stepRect = step.get_rect()
-        stepRect.center = stepButton.center
-        pygame.draw.rect(screen, white, stepButton)
-        screen.blit(step, stepRect)
+        button_builder.specify_dimensions((width / 4), 10, width / 2, 50)
+        button_builder.specify_colors(white, black)
+        button_builder.specify_text("let the agent take a move", smallFont)
+        step_button = button_builder.build()
 
         # Find solution and get steps stack
         # Check for AI move
@@ -99,24 +118,23 @@ while True:
         click, _, _ = pygame.mouse.get_pressed()
         if click == 1:
             mouse = pygame.mouse.get_pos()
-            if stepButton.collidepoint(mouse) and not the_end:
-                #if stack == None :
-                #To be implemented
-                #display a message saying no solution to this puzzle
+            if step_button.collidepoint(mouse) and not the_end:
+                # if stack == None :
+                # To be implemented
+                # display a message saying no solution to this puzzle
                 time.sleep(0.5)
                 board = stack[-1].grid
                 stack.pop()
         if the_end:
-            againButton = pygame.Rect(width / 3, height - 65, width / 3, 50)
-            again = mediumFont.render("Start Again", True, black)
-            againRect = again.get_rect()
-            againRect.center = againButton.center
-            pygame.draw.rect(screen, white, againButton)
-            screen.blit(again, againRect)
+            button_builder.specify_dimensions(width / 3, height - 65, width / 3, 50)
+            button_builder.specify_colors(white, black)
+            button_builder.specify_text("Start Again", mediumFont)
+            again_button = button_builder.build()
+
             click, _, _ = pygame.mouse.get_pressed()
             if click == 1:
                 mouse = pygame.mouse.get_pos()
-                if againButton.collidepoint(mouse):
+                if again_button.collidepoint(mouse):
                     time.sleep(0.2)
                     board = ai.initial_state()
                     begin = False

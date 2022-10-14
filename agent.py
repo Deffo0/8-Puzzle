@@ -14,15 +14,18 @@ class State():
     """
     State of puzzle
     """
+
     def __init__(self, grid, parent_state):
         self.grid = grid
         self.parent_state = parent_state
         self.distance = math.inf
 
+
 class StackFrontier:
     """
     Frontier used for DFS search
     """
+
     def __init__(self):
         self.frontier = []
 
@@ -71,9 +74,9 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [["3", "1", "7"],
-            ["2", "5", "4"],
-            ["8", "6", "0"]]
+    return [["1", "0", "2"],
+            ["3", "4", "5"],
+            ["6", "7", "8"]]
 
 
 def actions(board):
@@ -139,7 +142,6 @@ def terminal(board):
     return winner(board)
 
 
-
 def back_track(state):
     """
     :param state: Winner (final) state of the puzzle
@@ -167,7 +169,6 @@ def good_print(grid):
     print("\n", end="")
 
 
-
 def isPresent(state, list_of_states):
     """
     :param state: State of the puzzle
@@ -176,6 +177,7 @@ def isPresent(state, list_of_states):
     """
     print(any(l.grid == state.grid for l in list_of_states))
     return any(l.grid == state.grid for l in list_of_states)
+
 
 def allowed_action(i, j):
     """
@@ -186,34 +188,40 @@ def allowed_action(i, j):
     """
     return 0 <= i < 3 and 0 <= j < 3
 
+
 class ManhattanDistance:
 
-    def distance(self, index : str,  x2, y2):
+    def distance(self, index: str, x2, y2):
         x1 = int(int(index) / 3)
         y1 = int(index) % 3
         return abs(x1 - x2) + abs(y1 - y2)
-    def calculate(self, state : State):
+
+    def calculate(self, state: State):
         sum = 0
         for i in range(3):
             for j in range(3):
                 sum += self.distance(state.grid[i][j], i, j)
         return sum
+
 
 class EuclidianDistance:
 
-    def distance(self, index : str,  x2, y2):
+    def distance(self, index: str, x2, y2):
         x1 = int(int(index) / 3)
         y1 = int(index) % 3
         return math.sqrt(((x1 - x2) ** 2 + (y1 - y2) ** 2))
-    def calculate(self, state : State):
+
+    def calculate(self, state: State):
         sum = 0
         for i in range(3):
             for j in range(3):
                 sum += self.distance(state.grid[i][j], i, j)
         return sum
 
-def calculateHeruistic(state : State, function):
+
+def calculateHeruistic(state: State, function):
     return function.calculate(state)
+
 
 def DFS(board):
     """
@@ -280,7 +288,7 @@ def AStar(board, function):
     init_state = State(board, None)
     init_state.distance = 0
     frontier[init_state] = calculateHeruistic(init_state, function)
-    while(frontier.__len__() > 0):
+    while frontier.__len__() > 0:
         state, dist = frontier.popitem()
         print("State ", end="\n")
         good_print(state.grid)
@@ -290,7 +298,7 @@ def AStar(board, function):
             print(state.grid)
             print(state.parent_state.grid)
             return back_track(state)
-            
+
         set_of_actions, zero = actions(state.grid)
 
         for action in set_of_actions:
@@ -299,18 +307,8 @@ def AStar(board, function):
             good_print(next_state.grid)
             if not (isPresent(next_state, visited_states)):
                 heuristic = calculateHeruistic(next_state, function)
-                if(dist + 1 <= next_state.distance):
+                if (dist + 1 <= next_state.distance):
                     next_state.parent_state = state
                     next_state.distance = dist + 1
                 frontier[next_state] = next_state.distance + heuristic
     return None
-
-
-
-
-
-
-
-
-
-
