@@ -25,6 +25,7 @@ class State():
                 self.stringFormat += self.grid[i][j]
 
 
+
 class StackFrontier:
     """
     Frontier used for DFS search
@@ -70,8 +71,9 @@ def empty_state():
     Returns starting state of the board.
     """
     return [[EMPTY, EMPTY, EMPTY],
-[EMPTY, EMPTY, EMPTY],
-[EMPTY, EMPTY, EMPTY]]
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY]]
+
 
 
 def initial_state():
@@ -134,6 +136,7 @@ def winner(board):
     if (board[0][0] == "0" and board[0][1] == "1" and board[0][2] == "2"
         and board[1][0] == "3" and board[1][1] == "4" and board[1][2] == "5"
         and board[2][0] == "6" and board[2][1] == "7" and board[2][2] == "8"):
+
         return True
     else:
         return False
@@ -241,6 +244,7 @@ def DFS(board):
     while frontier.not_empty():
         state = frontier.pop()
         visited_states.add(state.stringFormat)
+
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
@@ -250,6 +254,7 @@ def DFS(board):
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
             if not (next_state.stringFormat in visited_states):
+
                 frontier.add(next_state)
 
     return None
@@ -269,6 +274,7 @@ def BFS(board):
     while frontier.not_empty():
         state = frontier.pop()
         visited_states.add(state.stringFormat)
+
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
@@ -306,6 +312,7 @@ def AStar(board, function):
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
             if not (next_state.stringFormat in visited_states):
+
                 heuristic = calculateHeruistic(next_state, function)
                 if (dist + 1 <= next_state.distance):
                     next_state.parent_state = state
