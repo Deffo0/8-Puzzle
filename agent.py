@@ -81,7 +81,7 @@ def initial_state():
     Returns starting state of the board.
     """
     return [["6", "4", "7"],
-            ["8", "5", "0"],
+            ["5", "0", "8"],
             ["3", "2", "1"]]
 
 
