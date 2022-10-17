@@ -160,7 +160,6 @@ def back_track(state):
     while parent is not None:
         stack.append(parent)
         parent = parent.parent_state
-    stack.pop()
     return stack
 
 
