@@ -126,7 +126,7 @@ while True:
         if click == 1:
             mouse = pygame.mouse.get_pos()
             if step_button.collidepoint(mouse) and not the_end and len(stack):
-                time.sleep(0.1)
+                time.sleep(0.2)
                 if board == stack[-1].grid:
                     board = stack[-1].grid
                     undo_stack.append(stack[-1])
@@ -137,7 +137,7 @@ while True:
                 stack.pop()
 
             elif undo_button.collidepoint(mouse) and len(undo_stack):
-                time.sleep(0.1)
+                time.sleep(0.2)
                 if board == undo_stack[-1].grid:
                     board = undo_stack[-1].grid
                     stack.append(undo_stack[-1])

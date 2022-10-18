@@ -80,9 +80,9 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [["6", "4", "7"],
-            ["5", "0", "8"],
-            ["3", "2", "1"]]
+    return [["8", "6", "7"],
+            ["2", "5", "4"],
+            ["3", "0", "1"]]
 
 
 def actions(board):
@@ -238,10 +238,13 @@ def DFS(board):
     """
     frontier = StackFrontier()
     visited_states = set()
+    frontier_set = set()
     init_state = State(board, None)
     frontier.add(init_state)
+    frontier_set.add(init_state.stringFormat)
     while frontier.not_empty():
         state = frontier.pop()
+        frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
@@ -252,9 +255,9 @@ def DFS(board):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if not (next_state.stringFormat in visited_states):
-
+            if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 frontier.add(next_state)
+                frontier_set.add(next_state.stringFormat)
 
     return None
 
@@ -268,10 +271,13 @@ def BFS(board):
     """
     frontier = QueueFrontier()
     visited_states = set()
+    frontier_set = set()
     init_state = State(board, None)
     frontier.add(init_state)
+    frontier_set.add(init_state.stringFormat)
     while frontier.not_empty():
         state = frontier.pop()
+        frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
@@ -282,9 +288,9 @@ def BFS(board):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if not (next_state.stringFormat in visited_states):
+            if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 frontier.add(next_state)
-
+                frontier_set.add(next_state.stringFormat)
     return None
 
 
@@ -294,11 +300,14 @@ def AStar(board, function):
     """
     frontier = heapdict.heapdict()
     visited_states = set()
+    frontier_set = set()
     init_state = State(board, None)
     init_state.distance = 0
     frontier[init_state] = calculateHeruistic(init_state, function)
+    frontier_set.add(init_state.stringFormat)
     while frontier.__len__() > 0:
         state, dist = frontier.popitem()
+        frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
@@ -310,11 +319,11 @@ def AStar(board, function):
 
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if not (next_state.stringFormat in visited_states):
-
+            if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 heuristic = calculateHeruistic(next_state, function)
                 if (dist + 1 <= next_state.distance):
                     next_state.parent_state = state
                     next_state.distance = dist + 1
                 frontier[next_state] = next_state.distance + heuristic
+                frontier_set.add(next_state.stringFormat)
     return None
