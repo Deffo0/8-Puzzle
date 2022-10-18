@@ -28,6 +28,7 @@ begin = False
 stack = None
 undo_stack = []
 board = ai.initial_state()
+solvable = True
 
 button_builder = builder.ButtonBuilder(screen, pygame)
 title_builder = builder.TitleBuilder(screen, pygame)
@@ -48,7 +49,6 @@ while True:
     if begin is False:
 
         # Draw title
-
         title_builder.specify_dimensions((width / 2), 50)
         title_builder.specify_colors(gold)
         title_builder.specify_text("8-Puzzle Agent", large_font)
@@ -83,22 +83,27 @@ while True:
                 stack = ai.DFS(board)
                 time.sleep(0.2)
                 begin = True
+                solvable = True
 
             elif solve_BFS_button.collidepoint(mouse):
                 stack = ai.BFS(board)
                 time.sleep(0.2)
                 begin = True
+                solvable = True
 
             elif solve_astar_manhattan_button.collidepoint(mouse):
                 stack = ai.AStar(board, manhattanDistance)
                 time.sleep(0.2)
                 begin = True
+                solvable = True
 
             elif solve_astar_euclidian_button.collidepoint(mouse):
                 stack = ai.AStar(board, euclidianDistance)
                 time.sleep(0.2)
                 begin = True
-    else:
+                solvable = True
+
+    elif solvable:
         # Draw game board
 
         board_builder.specify_dimensions((width / 2 - (1.5 * 80), height / 2 - (1.5 * 80)), 80)
@@ -123,9 +128,9 @@ while True:
         # Check for AI move
         # Check if step button is clicked
         click, _, _ = pygame.mouse.get_pressed()
-        if(stack is None):
-            print("Not Solvable")
-            break
+        if stack is None:
+            solvable = False
+
         if click == 1:
             mouse = pygame.mouse.get_pos()
             
@@ -166,6 +171,29 @@ while True:
                     time.sleep(0.2)
                     board = ai.initial_state()
                     begin = False
+
+    elif not solvable:
+        screen.fill(black)
+
+        # Draw title
+        title_builder.specify_dimensions((width / 2), (height / 2))
+        title_builder.specify_colors(gold)
+        title_builder.specify_text("Not solvable puzzle:(", large_font)
+        title_builder.build()
+
+        button_builder.specify_dimensions(width / 3, height - 150, width / 3, 50)
+        button_builder.specify_colors(gold, black)
+        button_builder.specify_text("restart", medium_font)
+        restart_button = button_builder.build()
+
+        click, _, _ = pygame.mouse.get_pressed()
+        if click == 1:
+            mouse = pygame.mouse.get_pos()
+            if restart_button.collidepoint(mouse):
+                time.sleep(0.2)
+                board = ai.initial_state()
+                begin = False
+
 
 
     pygame.display.flip()
