@@ -80,9 +80,9 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [["8", "6", "7"],
-            ["2", "5", "4"],
-            ["3", "0", "1"]]
+    return [["7", "0", "2"],
+            ["8", "5", "3"],
+            ["6", "4", "1"]]
 
 
 def actions(board):

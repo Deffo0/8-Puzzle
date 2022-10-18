@@ -123,8 +123,12 @@ while True:
         # Check for AI move
         # Check if step button is clicked
         click, _, _ = pygame.mouse.get_pressed()
+        if(stack is None):
+            print("Not Solvable")
+            break
         if click == 1:
             mouse = pygame.mouse.get_pos()
+            
             if step_button.collidepoint(mouse) and not the_end and len(stack):
                 time.sleep(0.2)
                 if board == stack[-1].grid:
