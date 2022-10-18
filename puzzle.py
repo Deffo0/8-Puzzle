@@ -159,7 +159,7 @@ while True:
                 the_end = False
 
         if the_end:
-            button_builder.specify_dimensions(width / 3, height - 65, width / 3, 50)
+            button_builder.specify_dimensions(width / 3, height - 65, width / 3, 40)
             button_builder.specify_colors(gold, black)
             button_builder.specify_text("Start Again", medium_font)
             again_button = button_builder.build()
@@ -181,7 +181,7 @@ while True:
         title_builder.specify_text("Not solvable puzzle:(", large_font)
         title_builder.build()
 
-        button_builder.specify_dimensions(width / 3, height - 150, width / 3, 50)
+        button_builder.specify_dimensions(width / 3, height - 150, width / 3, 40)
         button_builder.specify_colors(gold, black)
         button_builder.specify_text("restart", medium_font)
         restart_button = button_builder.build()
