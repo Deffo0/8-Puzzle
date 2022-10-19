@@ -80,9 +80,9 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [["7", "0", "2"],
-            ["8", "5", "3"],
-            ["6", "4", "1"]]
+    return [["1", "2", "3"],
+            ["5", "6", "0"],
+            ["7", "8", "4"]]
 
 
 def actions(board):
@@ -95,14 +95,14 @@ def actions(board):
         for j in range(0, 3):
             if board[i][j] == '0':
                 zero = (i, j)
-                if allowed_action(i + 1, j):
-                    possible_moves.add((i + 1, j))
                 if allowed_action(i - 1, j):
                     possible_moves.add((i - 1, j))
-                if allowed_action(i, j + 1):
-                    possible_moves.add((i, j + 1))
+                if allowed_action(i + 1, j):
+                    possible_moves.add((i + 1, j))
                 if allowed_action(i, j - 1):
                     possible_moves.add((i, j - 1))
+                if allowed_action(i, j + 1):
+                    possible_moves.add((i, j + 1))
                 break
     if len(possible_moves) == 0:
         return None
@@ -305,8 +305,12 @@ def AStar(board, function):
     init_state.distance = 0
     frontier[init_state] = calculateHeruistic(init_state, function)
     frontier_set.add(init_state.stringFormat)
-    while frontier.__len__() > 0:
-        state, dist = frontier.popitem()
+    ctr = 0
+    while len(frontier) > 0:
+        ctr += 1
+        print(ctr)
+        state, dist2 = frontier.popitem()
+        dist = state.distance
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
@@ -316,14 +320,13 @@ def AStar(board, function):
             return back_track(state)
 
         set_of_actions, zero = actions(state.grid)
-
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
             if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 heuristic = calculateHeruistic(next_state, function)
-                if (dist + 1 <= next_state.distance):
+                if (dist + 1 < next_state.distance):
                     next_state.parent_state = state
                     next_state.distance = dist + 1
-                frontier[next_state] = next_state.distance + heuristic
+                    frontier[next_state] = next_state.distance + heuristic
                 frontier_set.add(next_state.stringFormat)
     return None

@@ -128,7 +128,6 @@ while True:
             break
         if click == 1:
             mouse = pygame.mouse.get_pos()
-            
             if step_button.collidepoint(mouse) and not the_end and len(stack):
                 time.sleep(0.2)
                 if board == stack[-1].grid:
