@@ -322,11 +322,11 @@ def AStar(board, function):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
-                heuristic = calculateHeruistic(next_state, function)
-                if (dist + 1 < next_state.distance):
+            if (dist + 1 < next_state.distance):
                     next_state.parent_state = state
                     next_state.distance = dist + 1
-                    frontier[next_state] = next_state.distance + heuristic
+            if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
+                heuristic = calculateHeruistic(next_state, function)
+                frontier[next_state] = next_state.distance + heuristic
                 frontier_set.add(next_state.stringFormat)
     return None
