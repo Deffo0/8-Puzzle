@@ -2,6 +2,7 @@
 8 Puzzle Agent
 """
 import copy
+import sys
 import math
 from queue import PriorityQueue
 
@@ -23,7 +24,6 @@ class State():
         for i in range(3):
             for j in range(3):
                 self.stringFormat += self.grid[i][j]
-
 
 
 class StackFrontier:
@@ -75,14 +75,25 @@ def empty_state():
             [EMPTY, EMPTY, EMPTY]]
 
 
-
-def initial_state():
+def initial_state(user_text):
     """
     Returns starting state of the board.
     """
-    return [["1", "2", "3"],
-            ["5", "6", "0"],
-            ["7", "8", "4"]]
+    matrix = []
+    row = []
+    ctr = 0
+    if len(user_text) > 9:
+        sys.exit(0)
+    for num in list(user_text):
+        print(num)
+        if ctr == 3:
+            ctr = 0
+            matrix.append(row)
+            row = []
+        row.append(num)
+        ctr += 1
+    matrix.append(row)
+    return matrix
 
 
 def actions(board):
@@ -134,8 +145,8 @@ def winner(board):
     Returns the winner of the game, if there is one.
     """
     if (board[0][0] == "0" and board[0][1] == "1" and board[0][2] == "2"
-        and board[1][0] == "3" and board[1][1] == "4" and board[1][2] == "5"
-        and board[2][0] == "6" and board[2][1] == "7" and board[2][2] == "8"):
+            and board[1][0] == "3" and board[1][1] == "4" and board[1][2] == "5"
+            and board[2][0] == "6" and board[2][1] == "7" and board[2][2] == "8"):
 
         return True
     else:
@@ -160,6 +171,7 @@ def back_track(state):
     while parent is not None:
         stack.append(parent)
         parent = parent.parent_state
+    print(len(stack))
     return stack
 
 
@@ -242,7 +254,10 @@ def DFS(board):
     init_state = State(board, None)
     frontier.add(init_state)
     frontier_set.add(init_state.stringFormat)
+    explored = 0
     while frontier.not_empty():
+        explored += 1
+        print(explored)
         state = frontier.pop()
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
@@ -275,7 +290,10 @@ def BFS(board):
     init_state = State(board, None)
     frontier.add(init_state)
     frontier_set.add(init_state.stringFormat)
+    explored = 0
     while frontier.not_empty():
+        explored += 1
+        print(explored)
         state = frontier.pop()
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
@@ -322,9 +340,9 @@ def AStar(board, function):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if (dist + 1 < next_state.distance):
-                    next_state.parent_state = state
-                    next_state.distance = dist + 1
+            if dist + 1 < next_state.distance:
+                next_state.parent_state = state
+                next_state.distance = dist + 1
             if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 heuristic = calculateHeruistic(next_state, function)
                 frontier[next_state] = next_state.distance + heuristic
