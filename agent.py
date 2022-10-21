@@ -85,7 +85,6 @@ def initial_state(user_text):
     if len(user_text) > 9:
         sys.exit(0)
     for num in list(user_text):
-        print(num)
         if ctr == 3:
             ctr = 0
             matrix.append(row)
@@ -171,7 +170,7 @@ def back_track(state):
     while parent is not None:
         stack.append(parent)
         parent = parent.parent_state
-    print(len(stack))
+    print("path to cost: " + str(len(stack) - 1))
     return stack
 
 
@@ -257,7 +256,6 @@ def DFS(board):
     explored = 0
     while frontier.not_empty():
         explored += 1
-        print(explored)
         state = frontier.pop()
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
@@ -265,6 +263,7 @@ def DFS(board):
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
+            print("nodes explored: " + str(explored))
             return back_track(state)
 
         set_of_actions, zero = actions(state.grid)
@@ -293,7 +292,6 @@ def BFS(board):
     explored = 0
     while frontier.not_empty():
         explored += 1
-        print(explored)
         state = frontier.pop()
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
@@ -301,6 +299,7 @@ def BFS(board):
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
+            print("nodes explored: " + str(explored))
             return back_track(state)
 
         set_of_actions, zero = actions(state.grid)
@@ -326,7 +325,6 @@ def AStar(board, function):
     ctr = 0
     while len(frontier) > 0:
         ctr += 1
-        print(ctr)
         state, dist2 = frontier.popitem()
         dist = state.distance
         frontier_set.remove(state.stringFormat)
@@ -335,6 +333,7 @@ def AStar(board, function):
         if winner(state.grid):
             print(state.grid)
             print(state.parent_state.grid)
+            print("nodes explored: " + str(ctr))
             return back_track(state)
 
         set_of_actions, zero = actions(state.grid)

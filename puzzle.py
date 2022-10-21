@@ -48,14 +48,18 @@ def start_menu():
         start_mouse = pygame.mouse.get_pos()
         if solve_dfs_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
+            start = time.time()
             stack = ai.DFS(board)
+            print("running time: " + str(time.time() - start))
             time.sleep(0.2)
             begin = True
             solvable = True
 
         elif solve_bfs_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
+            start = time.time()
             stack = ai.BFS(board)
+            print("running time: " + str(time.time() - start))
             time.sleep(0.2)
             begin = True
             solvable = True
@@ -63,7 +67,9 @@ def start_menu():
         elif solve_astar_manhattan_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
             manhattan_distance = ai.ManhattanDistance()
+            start = time.time()
             stack = ai.AStar(board, manhattan_distance)
+            print("running time: " + str(time.time() - start))
             time.sleep(0.2)
             begin = True
             solvable = True
@@ -71,7 +77,9 @@ def start_menu():
         elif solve_astar_euclidean_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
             euclidean_distance = ai.EuclidianDistance()
+            start = time.time()
             stack = ai.AStar(board, euclidean_distance)
+            print("running time: " + str(time.time() - start))
             time.sleep(0.2)
             begin = True
             solvable = True
