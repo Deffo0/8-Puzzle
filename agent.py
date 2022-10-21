@@ -19,7 +19,7 @@ class State():
     def __init__(self, grid, parent_state):
         self.grid = grid
         self.parent_state = parent_state
-        self.distance = math.inf
+        self.distance = 0
         self.stringFormat = ""
         for i in range(3):
             for j in range(3):
@@ -33,9 +33,11 @@ class StackFrontier:
 
     def __init__(self):
         self.frontier = []
+        self.max_size = 0
 
     def add(self, state):
         self.frontier.append(state)
+        self.max_size = max(self.max_size, len(self.frontier))
 
     def pop(self):
         returned_state = self.frontier[-1]
@@ -53,9 +55,11 @@ class QueueFrontier:
 
     def __init__(self):
         self.frontier = []
+        self.max_size = 0
 
     def add(self, state):
         self.frontier.append(state)
+        self.max_size = max(self.max_size, len(self.frontier))
 
     def pop(self):
         returned_state = self.frontier[0]
@@ -159,18 +163,42 @@ def terminal(board):
     return winner(board)
 
 
+def get_empty_tile(state: State):
+    for i in range(0, 3):
+        for j in range(0, 3):
+            if state.grid[i][j] == "0":
+                return i, j
+    return -1, -1
+
+
+def detect_action(state):
+    """
+        return: action used to move from a parent state to the given state
+    """
+    row_of_state, col_of_state = get_empty_tile(state)
+    row_of_parent_state, col_of_parent_state = get_empty_tile(state.parent_state)
+    if row_of_state == row_of_parent_state:
+        return "Right" if col_of_parent_state < col_of_state else "Left"
+    return "Down" if row_of_parent_state < row_of_state else "Up"
+
+
 def back_track(state):
     """
     :param state: Winner (final) state of the puzzle
     :return: Stack containing the parent chain starting from final state ending at initial state
     """
-    stack = []
+    stack, stack_of_actions = [], []
     stack.append(state)
     parent = state.parent_state
     while parent is not None:
+        stack_of_actions.append(detect_action(state))
         stack.append(parent)
+        state = parent
         parent = parent.parent_state
-    print("path to cost: " + str(len(stack) - 1))
+    print("path-to-Goal cost: " + str(len(stack) - 1))
+    print("path-to-Goal depth: " + str(len(stack) - 1))
+    stack_of_actions.reverse()
+    print(f"path-to-Goal: {stack_of_actions}")
     return stack
 
 
@@ -254,21 +282,27 @@ def DFS(board):
     frontier.add(init_state)
     frontier_set.add(init_state.stringFormat)
     explored = 0
+    max_depth = 0
     while frontier.not_empty():
         explored += 1
         state = frontier.pop()
+        max_depth = max(max_depth, state.distance)
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
-            print(state.grid)
-            print(state.parent_state.grid)
+            print(f"Goal State: {state.grid}")
+            print(f"Pre-Goal State: {state.parent_state.grid}")
             print("nodes explored: " + str(explored))
+            print(f"Max.fringe size : {frontier.max_size}")
+            print(f"Fringe size : {len(frontier.frontier)}")
+            print(f"Max.Depth: {max_depth}")
             return back_track(state)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
+            next_state.distance = state.distance + 1
             if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 frontier.add(next_state)
                 frontier_set.add(next_state.stringFormat)
@@ -290,21 +324,27 @@ def BFS(board):
     frontier.add(init_state)
     frontier_set.add(init_state.stringFormat)
     explored = 0
+    max_depth = 0
     while frontier.not_empty():
         explored += 1
         state = frontier.pop()
+        max_depth = max(state.distance, max_depth)
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
-            print(state.grid)
-            print(state.parent_state.grid)
+            print(f"Goal State: {state.grid}")
+            print(f"Pre-Goal State: {state.parent_state.grid}")
             print("nodes explored: " + str(explored))
+            print(f"Max.fringe size : {frontier.max_size}")
+            print(f"Fringe size : {len(frontier.frontier)}")
+            print(f"Max. Depth: {max_depth}")
             return back_track(state)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
+            next_state.distance = state.distance + 1
             if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 frontier.add(next_state)
                 frontier_set.add(next_state.stringFormat)
@@ -319,10 +359,11 @@ def AStar(board, function):
     visited_states = set()
     frontier_set = set()
     init_state = State(board, None)
-    init_state.distance = 0
+    # init_state.distance = 0
     frontier[init_state] = calculateHeruistic(init_state, function)
     frontier_set.add(init_state.stringFormat)
     ctr = 0
+    max_fringe_size = 0
     while len(frontier) > 0:
         ctr += 1
         state, dist2 = frontier.popitem()
@@ -331,9 +372,11 @@ def AStar(board, function):
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
-            print(state.grid)
-            print(state.parent_state.grid)
+            print(f"Goal State: {state.grid}")
+            print(f"Pre-Goal State: {state.parent_state.grid}")
             print("nodes explored: " + str(ctr))
+            print(f"Max. fringe size: {max_fringe_size}")
+            print(f"Fringe size: {len(frontier)}")
             return back_track(state)
 
         set_of_actions, zero = actions(state.grid)
@@ -346,4 +389,5 @@ def AStar(board, function):
                 heuristic = calculateHeruistic(next_state, function)
                 frontier[next_state] = next_state.distance + heuristic
                 frontier_set.add(next_state.stringFormat)
+                max_fringe_size = max(max_fringe_size, len(frontier))
     return None

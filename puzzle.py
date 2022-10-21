@@ -50,7 +50,7 @@ def start_menu():
             board = ai.initial_state(user_text)
             start = time.time()
             stack = ai.DFS(board)
-            print("running time: " + str(time.time() - start))
+            print("running time: " + str(time.time() - start) + " seconds")
             time.sleep(0.2)
             begin = True
             solvable = True
@@ -59,7 +59,7 @@ def start_menu():
             board = ai.initial_state(user_text)
             start = time.time()
             stack = ai.BFS(board)
-            print("running time: " + str(time.time() - start))
+            print("running time: " + str(time.time() - start) + " seconds")
             time.sleep(0.2)
             begin = True
             solvable = True
@@ -69,7 +69,7 @@ def start_menu():
             manhattan_distance = ai.ManhattanDistance()
             start = time.time()
             stack = ai.AStar(board, manhattan_distance)
-            print("running time: " + str(time.time() - start))
+            print("running time: " + str(time.time() - start) + " seconds")
             time.sleep(0.2)
             begin = True
             solvable = True
@@ -79,7 +79,7 @@ def start_menu():
             euclidean_distance = ai.EuclidianDistance()
             start = time.time()
             stack = ai.AStar(board, euclidean_distance)
-            print("running time: " + str(time.time() - start))
+            print("running time: " + str(time.time() - start) + " seconds")
             time.sleep(0.2)
             begin = True
             solvable = True
