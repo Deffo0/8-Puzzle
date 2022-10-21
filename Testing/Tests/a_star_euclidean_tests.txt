@@ -1,0 +1,20 @@
+[['7', '6', '4'], ['5', '8', '1'], ['0', '3', '2']]
+Actions to do: None
+cost-to-goal: inf
+depth-to-goal: inf 
+nodes explored: 181440
+Max. fringe size: 19734 
+Fringe size: 0 
+running time: 13.967428922653198 seconds 
+unsolvable
+
+[['4', '6', '0'], ['7', '2', '8'], ['5', '3', '1']]
+Actions to do: ['Left', 'Down', 'Left', 'Down', 'Right', 'Up', 'Left', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Right', 'Up', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Down', 'Left', 'Up', 'Up', 'Right', 'Right', 'Down', 'Left', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Left']
+cost-to-goal: 60
+depth-to-goal: 60 
+nodes explored: 623
+Max. fringe size: 422 
+Fringe size: 421 
+running time: 0.06955504417419434 seconds 
+solvable
+

@@ -48,18 +48,32 @@ def start_menu():
         start_mouse = pygame.mouse.get_pos()
         if solve_dfs_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
-            start = time.time()
-            stack = ai.DFS(board)
-            print("running time: " + str(time.time() - start) + " seconds")
+            # start = time.time()
+            stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = ai.DFS(board)
+            print(f"Actions to do: {actions_to_solve}")
+            print(f"cost-to-goal: {cost_and_depth}")
+            print(f"depth-to-goal: {cost_and_depth}")
+            print(f"nodes explored: {explored}")
+            print(f"Max. fringe size: {fringe_max_size}")
+            print(f"Fringe size: {fringe_size}")
+            print(f"Max. depth: {max_depth}")
+            print(f"running time: {run_time} seconds")
             time.sleep(0.2)
             begin = True
             solvable = True
 
         elif solve_bfs_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
-            start = time.time()
-            stack = ai.BFS(board)
-            print("running time: " + str(time.time() - start) + " seconds")
+            # start = time.time()
+            stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = ai.BFS(board)
+            print(f"Actions to do: {actions_to_solve}")
+            print(f"cost-to-goal: {cost_and_depth}")
+            print(f"depth-to-goal: {cost_and_depth}")
+            print(f"nodes explored: {explored}")
+            print(f"Max. fringe size: {fringe_max_size}")
+            print(f"Fringe size: {fringe_size}")
+            print(f"Max. depth: {max_depth}")
+            print(f"running time: {run_time} seconds")
             time.sleep(0.2)
             begin = True
             solvable = True
@@ -68,8 +82,15 @@ def start_menu():
             board = ai.initial_state(user_text)
             manhattan_distance = ai.ManhattanDistance()
             start = time.time()
-            stack = ai.AStar(board, manhattan_distance)
-            print("running time: " + str(time.time() - start) + " seconds")
+            stack, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time = ai.AStar(board, manhattan_distance)
+            print(f"Actions to do: {actions_to_solve}")
+            print(f"cost-to-goal: {cost_and_depth}")
+            print(f"depth-to-goal: {cost_and_depth}")
+            print(f"nodes explored: {explored}")
+            print(f"Max. fringe size: {max_fringe_size}")
+            print(f"Fringe size: {fringe_size}")
+            # print(f"Max. depth: {max_depth}")
+            print(f"running time: {run_time} seconds")
             time.sleep(0.2)
             begin = True
             solvable = True
@@ -77,12 +98,20 @@ def start_menu():
         elif solve_astar_euclidean_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
             euclidean_distance = ai.EuclidianDistance()
-            start = time.time()
-            stack = ai.AStar(board, euclidean_distance)
-            print("running time: " + str(time.time() - start) + " seconds")
+            # start = time.time()
+            stack, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size = ai.AStar(board, euclidean_distance)
+            print(f"Actions to do: {actions_to_solve}")
+            print(f"cost-to-goal: {cost_and_depth}")
+            print(f"depth-to-goal: {cost_and_depth}")
+            print(f"nodes explored: {explored}")
+            print(f"Max. fringe size: {max_fringe_size}")
+            print(f"Fringe size: {fringe_size}")
+            # print(f"Max. depth: {max_depth}")
+            # print("running time: " + str(time.time() - start) + " seconds")
             time.sleep(0.2)
             begin = True
             solvable = True
+
 
 
 def gameplay():

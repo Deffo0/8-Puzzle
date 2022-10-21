@@ -5,7 +5,7 @@ import copy
 import sys
 import math
 from queue import PriorityQueue
-
+import time
 import heapdict
 
 EMPTY = ""
@@ -195,11 +195,8 @@ def back_track(state):
         stack.append(parent)
         state = parent
         parent = parent.parent_state
-    print("path-to-Goal cost: " + str(len(stack) - 1))
-    print("path-to-Goal depth: " + str(len(stack) - 1))
     stack_of_actions.reverse()
-    print(f"path-to-Goal: {stack_of_actions}")
-    return stack
+    return stack, str(len(stack) - 1), stack_of_actions
 
 
 def good_print(grid):
@@ -275,6 +272,7 @@ def DFS(board):
     and returns stack of states leading to the solution
     starting at final state (Goal) and ending at initial_state
     """
+    start = time.time()
     frontier = StackFrontier()
     visited_states = set()
     frontier_set = set()
@@ -293,11 +291,8 @@ def DFS(board):
         if winner(state.grid):
             print(f"Goal State: {state.grid}")
             print(f"Pre-Goal State: {state.parent_state.grid}")
-            print("nodes explored: " + str(explored))
-            print(f"Max.fringe size : {frontier.max_size}")
-            print(f"Fringe size : {len(frontier.frontier)}")
-            print(f"Max.Depth: {max_depth}")
-            return back_track(state)
+            stack, cost_and_depth, actions_to_solve = back_track(state)
+            return stack, cost_and_depth, actions_to_solve, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
@@ -307,7 +302,7 @@ def DFS(board):
                 frontier.add(next_state)
                 frontier_set.add(next_state.stringFormat)
 
-    return None
+    return None, math.inf, None, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
 
 def BFS(board):
@@ -317,6 +312,7 @@ def BFS(board):
     and returns stack of states leading to the solution
     starting at final state (Goal) and ending at initial_state
     """
+    start = time.time()
     frontier = QueueFrontier()
     visited_states = set()
     frontier_set = set()
@@ -335,11 +331,8 @@ def BFS(board):
         if winner(state.grid):
             print(f"Goal State: {state.grid}")
             print(f"Pre-Goal State: {state.parent_state.grid}")
-            print("nodes explored: " + str(explored))
-            print(f"Max.fringe size : {frontier.max_size}")
-            print(f"Fringe size : {len(frontier.frontier)}")
-            print(f"Max. Depth: {max_depth}")
-            return back_track(state)
+            stack, cost_and_depth, actions_to_solve = back_track(state)
+            return stack, cost_and_depth, actions_to_solve, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
@@ -348,13 +341,14 @@ def BFS(board):
             if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 frontier.add(next_state)
                 frontier_set.add(next_state.stringFormat)
-    return None
+    return None, math.inf, None, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
 
 def AStar(board, function):
     """
     Returns the next action for the current state on the board.
     """
+    start = time.time()
     frontier = heapdict.heapdict()
     visited_states = set()
     frontier_set = set()
@@ -374,10 +368,8 @@ def AStar(board, function):
         if winner(state.grid):
             print(f"Goal State: {state.grid}")
             print(f"Pre-Goal State: {state.parent_state.grid}")
-            print("nodes explored: " + str(ctr))
-            print(f"Max. fringe size: {max_fringe_size}")
-            print(f"Fringe size: {len(frontier)}")
-            return back_track(state)
+            stack, cost_and_depth, actions_to_solve = back_track(state)
+            return stack, cost_and_depth, actions_to_solve, ctr, max_fringe_size, len(frontier), (time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
@@ -390,4 +382,4 @@ def AStar(board, function):
                 frontier[next_state] = next_state.distance + heuristic
                 frontier_set.add(next_state.stringFormat)
                 max_fringe_size = max(max_fringe_size, len(frontier))
-    return None
+    return None, math.inf, None, ctr, max_fringe_size, len(frontier), (time.time() - start)
