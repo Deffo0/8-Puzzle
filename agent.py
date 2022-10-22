@@ -279,7 +279,6 @@ def DFS(board):
     init_state = State(board, None)
     frontier.add(init_state)
     frontier_set.add(init_state.stringFormat)
-    explored = 0
     max_depth = 0
     while frontier.not_empty():
         explored += 1
@@ -291,7 +290,7 @@ def DFS(board):
         if winner(state.grid):
             print_state_and_its_parent(state)
             stack, cost_and_depth, actions_to_solve = back_track(state)
-            return stack, cost_and_depth, actions_to_solve, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
+            return stack, cost_and_depth, actions_to_solve, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
@@ -301,7 +300,7 @@ def DFS(board):
                 frontier.add(next_state)
                 frontier_set.add(next_state.stringFormat)
 
-    return None, math.inf, None, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
+    return None, math.inf, None, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
 
 def BFS(board):
