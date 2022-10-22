@@ -18,3 +18,13 @@ Fringe size: 421
 running time: 0.06955504417419434 seconds 
 solvable
 
+[['5', '3', '2'], ['8', '6', '4'], ['7', '1', '0']] 
+Actions to do: None
+cost-to-goal: inf
+depth-to-goal: inf 
+nodes explored: 181440
+Max. fringe size: 19765 
+Fringe size: 0 
+running time: 11.409795761108398 seconds 
+unsolvable
+

@@ -20,3 +20,14 @@ Max. depth: 26
 running time: 32.402329444885254 seconds 
 solvable
 
+[['5', '3', '2'], ['8', '6', '4'], ['7', '1', '0']] 
+Actions to do: None
+cost-to-goal: inf
+depth-to-goal: inf 
+nodes explored: 181440
+Max. fringe size: 24047 
+Fringe size: 0 
+Max. depth: 31 
+running time: 22.44606375694275 seconds 
+unsolvable
+

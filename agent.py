@@ -289,8 +289,7 @@ def DFS(board):
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
-            print(f"Goal State: {state.grid}")
-            print(f"Pre-Goal State: {state.parent_state.grid}")
+            print_state_and_its_parent(state)
             stack, cost_and_depth, actions_to_solve = back_track(state)
             return stack, cost_and_depth, actions_to_solve, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
@@ -319,20 +318,17 @@ def BFS(board):
     init_state = State(board, None)
     frontier.add(init_state)
     frontier_set.add(init_state.stringFormat)
-    explored = 0
     max_depth = 0
     while frontier.not_empty():
-        explored += 1
         state = frontier.pop()
         max_depth = max(state.distance, max_depth)
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
-            print(f"Goal State: {state.grid}")
-            print(f"Pre-Goal State: {state.parent_state.grid}")
+            print_state_and_its_parent(state)
             stack, cost_and_depth, actions_to_solve = back_track(state)
-            return stack, cost_and_depth, actions_to_solve, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
+            return stack, cost_and_depth, actions_to_solve, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
@@ -341,7 +337,7 @@ def BFS(board):
             if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 frontier.add(next_state)
                 frontier_set.add(next_state.stringFormat)
-    return None, math.inf, None, explored, frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
+    return None, math.inf, None, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
 
 
 def AStar(board, function):
@@ -353,23 +349,19 @@ def AStar(board, function):
     visited_states = set()
     frontier_set = set()
     init_state = State(board, None)
-    # init_state.distance = 0
     frontier[init_state] = calculateHeruistic(init_state, function)
     frontier_set.add(init_state.stringFormat)
-    ctr = 0
     max_fringe_size = 0
     while len(frontier) > 0:
-        ctr += 1
         state, dist2 = frontier.popitem()
         dist = state.distance
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
         if winner(state.grid):
-            print(f"Goal State: {state.grid}")
-            print(f"Pre-Goal State: {state.parent_state.grid}")
+            print_state_and_its_parent(state)
             stack, cost_and_depth, actions_to_solve = back_track(state)
-            return stack, cost_and_depth, actions_to_solve, ctr, max_fringe_size, len(frontier), (time.time() - start)
+            return stack, cost_and_depth, actions_to_solve, len(visited_states), max_fringe_size, len(frontier), (time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
@@ -382,4 +374,30 @@ def AStar(board, function):
                 frontier[next_state] = next_state.distance + heuristic
                 frontier_set.add(next_state.stringFormat)
                 max_fringe_size = max(max_fringe_size, len(frontier))
-    return None, math.inf, None, ctr, max_fringe_size, len(frontier), (time.time() - start)
+    return None, math.inf, None, len(visited_states), max_fringe_size, len(frontier), (time.time() - start)
+
+
+def print_state_and_its_parent(state):
+    print(f"Goal State: {state.grid}")
+    print(f"Pre-Goal State: {state.parent_state.grid}")
+
+
+def print_Res_fs(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time):
+    print(f"Actions to do: {actions_to_solve}")
+    print(f"cost-to-goal: {cost_and_depth}")
+    print(f"depth-to-goal: {cost_and_depth}")
+    print(f"nodes explored: {explored}")
+    print(f"Max. fringe size: {fringe_max_size}")
+    print(f"Fringe size: {fringe_size}")
+    print(f"Max. depth: {max_depth}")
+    print(f"running time: {run_time} seconds")
+
+
+def print_Res_astar(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, run_time):
+    print(f"Actions to do: {actions_to_solve}")
+    print(f"cost-to-goal: {cost_and_depth}")
+    print(f"depth-to-goal: {cost_and_depth}")
+    print(f"nodes explored: {explored}")
+    print(f"Max. fringe size: {fringe_max_size}")
+    print(f"Fringe size: {fringe_size}")
+    print(f"running time: {run_time} seconds")

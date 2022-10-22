@@ -2,6 +2,7 @@ import unittest
 import random
 import agent
 from Checker import is_solvable
+import file_writer
 
 
 class MyTestCase(unittest.TestCase):
@@ -24,51 +25,30 @@ class MyTestCase(unittest.TestCase):
         stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = agent.DFS(self.state.grid)
         value = not (stack is None)
         expected = is_solvable(self.my_lin_board)
-        file = open("./Tests/dfs_tests.txt", 'a')
-        file.writelines([f"{self.state.grid} \n", f"Actions to do: {actions_to_solve}\n", f"cost-to-goal: {cost_and_depth}\n", f"depth-to-goal: {cost_and_depth} \n",
-                         f"nodes explored: {explored}\n", f"Max. fringe size: {fringe_max_size} \n", f"Fringe size: {fringe_size} \n",
-                         f"Max. depth: {max_depth} \n", f"running time: {run_time} seconds \n", "solvable" if expected else "unsolvable", "\n\n"])
-        file.close()
+        file_writer.write_to_file_fs(self.state.grid, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time, expected)("./Tests/dfs_tests.txt")
         self.assertEqual(value, expected)  # add assertion here
 
     def test_bfs(self):
         stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = agent.BFS(self.state.grid)
         value = not (stack is None)
         expected = is_solvable(self.my_lin_board)
-        file = open("./Tests/bfs_tests.txt", 'a')
-        file.writelines(
-            [f"{self.state.grid} \n", f"Actions to do: {actions_to_solve}\n", f"cost-to-goal: {cost_and_depth}\n",
-             f"depth-to-goal: {cost_and_depth} \n",
-             f"nodes explored: {explored}\n", f"Max. fringe size: {fringe_max_size} \n",
-             f"Fringe size: {fringe_size} \n",
-             f"Max. depth: {max_depth} \n", f"running time: {run_time} seconds \n", "solvable" if expected else "unsolvable", "\n\n"])
-        file.close()
+        file_writer.write_to_file_fs(self.state.grid, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time, expected)("./Tests/bfs_tests.txt")
         self.assertEqual(value, expected)  # add assertion here
 
     def test_a_star_manhattan(self):
         stack, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time = agent.AStar(self.state.grid, agent.ManhattanDistance())
         value = not (stack is None)
         expected = is_solvable(self.my_lin_board)
-        file = open("./Tests/a_star_manhattan_tests.txt", 'a')
-        file.writelines(
-            [f"{self.state.grid} \n", f"Actions to do: {actions_to_solve}\n", f"cost-to-goal: {cost_and_depth}\n",
-             f"depth-to-goal: {cost_and_depth} \n",
-             f"nodes explored: {explored}\n", f"Max. fringe size: {max_fringe_size} \n",
-             f"Fringe size: {fringe_size} \n", f"running time: {run_time} seconds \n", "solvable" if expected else "unsolvable", "\n\n"])
-        file.close()
+        file_writer.write_to_file_star(self.state.grid, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time, expected)("./Tests/a_star_manhattan_tests.txt")
         self.assertEqual(value, expected)
 
     def test_a_star_euclidean(self):
         stack, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time = agent.AStar(self.state.grid, agent.EuclidianDistance())
         value = not (stack is None)
         expected = is_solvable(self.my_lin_board)
-        file = open("./Tests/a_star_euclidean_tests.txt", 'a')
-        file.writelines(
-            [f"{self.state.grid}\n", f"Actions to do: {actions_to_solve}\n", f"cost-to-goal: {cost_and_depth}\n",
-             f"depth-to-goal: {cost_and_depth} \n",
-             f"nodes explored: {explored}\n", f"Max. fringe size: {max_fringe_size} \n",
-             f"Fringe size: {fringe_size} \n", f"running time: {run_time} seconds \n", "solvable" if expected else "unsolvable", "\n\n"])
-        file.close()
+        file_writer.write_to_file_star(self.state.grid, cost_and_depth, actions_to_solve, explored, max_fringe_size,
+                                       fringe_size, run_time, expected)("./Tests/a_star_euclidean_tests.txt")
+
         self.assertEqual(value, expected)
 
 
