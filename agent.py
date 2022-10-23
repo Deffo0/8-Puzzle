@@ -281,7 +281,6 @@ def DFS(board):
     frontier_set.add(init_state.stringFormat)
     max_depth = 0
     while frontier.not_empty():
-        explored += 1
         state = frontier.pop()
         max_depth = max(max_depth, state.distance)
         frontier_set.remove(state.stringFormat)

@@ -28,3 +28,133 @@ Fringe size: 0
 running time: 11.409795761108398 seconds 
 unsolvable
 
+[['3', '7', '5'], ['1', '8', '2'], ['6', '4', '0']] 
+Actions to do: ['Left', 'Up', 'Left', 'Up', 'Right', 'Down', 'Right', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Down', 'Left', 'Up', 'Right', 'Right', 'Up', 'Left', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Up']
+cost-to-goal: 70
+depth-to-goal: 70 
+nodes explored: 624
+Max. fringe size: 422 
+Fringe size: 421 
+running time: 0.038460493087768555 seconds 
+solvable
+
+[['6', '1', '5'], ['0', '4', '8'], ['7', '3', '2']] 
+Actions to do: ['Down', 'Right', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Up', 'Right', 'Down', 'Down', 'Left', 'Left', 'Up', 'Up', 'Right', 'Down', 'Down', 'Right', 'Up', 'Up', 'Left', 'Left', 'Down', 'Down', 'Right', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Up']
+cost-to-goal: 73
+depth-to-goal: 73 
+nodes explored: 606
+Max. fringe size: 406 
+Fringe size: 405 
+running time: 0.03597855567932129 seconds 
+solvable
+
+[['7', '8', '0'], ['6', '5', '1'], ['4', '2', '3']] 
+Actions to do: None
+cost-to-goal: inf
+depth-to-goal: inf 
+nodes explored: 181440
+Max. fringe size: 19755 
+Fringe size: 0 
+running time: 10.536489725112915 seconds 
+unsolvable
+
+[['7', '5', '3'], ['6', '8', '1'], ['2', '0', '4']] 
+Actions to do: ['Up', 'Up', 'Right', 'Down', 'Left', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Right', 'Down', 'Left', 'Up', 'Right', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Down', 'Right', 'Up', 'Left', 'Up', 'Right', 'Right', 'Down', 'Left', 'Up', 'Left', 'Down', 'Right', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Right', 'Down', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left']
+cost-to-goal: 89
+depth-to-goal: 89 
+nodes explored: 189
+Max. fringe size: 143 
+Fringe size: 142 
+running time: 0.011992692947387695 seconds 
+solvable
+
+[['0', '6', '1'], ['8', '2', '7'], ['3', '5', '4']] 
+Actions to do: ['Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Right', 'Right', 'Down', 'Left', 'Up', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Up', 'Right', 'Down', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Right', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up']
+cost-to-goal: 58
+depth-to-goal: 58 
+nodes explored: 122
+Max. fringe size: 94 
+Fringe size: 93 
+running time: 0.006983041763305664 seconds 
+solvable
+
+[['5', '2', '8'], ['7', '3', '6'], ['1', '4', '0']] 
+Actions to do: None
+cost-to-goal: inf
+depth-to-goal: inf 
+nodes explored: 181440
+Max. fringe size: 19784 
+Fringe size: 0 
+running time: 10.585448265075684 seconds 
+unsolvable
+
+[['6', '8', '2'], ['1', '3', '5'], ['0', '4', '7']] 
+Actions to do: None
+cost-to-goal: inf
+depth-to-goal: inf 
+nodes explored: 181440
+Max. fringe size: 19731 
+Fringe size: 0 
+running time: 10.419766426086426 seconds 
+unsolvable
+
+[['5', '0', '3'], ['8', '2', '7'], ['1', '6', '4']] 
+Actions to do: ['Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Up', 'Right', 'Down', 'Down', 'Right', 'Up', 'Left', 'Left', 'Up', 'Right', 'Right', 'Down', 'Left', 'Up', 'Left', 'Down', 'Right', 'Down', 'Right', 'Up', 'Up', 'Left', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up']
+cost-to-goal: 37
+depth-to-goal: 37 
+nodes explored: 66
+Max. fringe size: 55 
+Fringe size: 54 
+running time: 0.003998279571533203 seconds 
+solvable
+
+[['5', '0', '6'], ['3', '7', '2'], ['1', '4', '8']] 
+Actions to do: ['Right', 'Down', 'Left', 'Up', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Left', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Left']
+cost-to-goal: 43
+depth-to-goal: 43 
+nodes explored: 625
+Max. fringe size: 421 
+Fringe size: 420 
+running time: 0.035979270935058594 seconds 
+solvable
+
+[['4', '7', '2'], ['5', '1', '6'], ['8', '0', '3']] 
+Actions to do: None
+cost-to-goal: inf
+depth-to-goal: inf 
+nodes explored: 181440
+Max. fringe size: 19756 
+Fringe size: 0 
+running time: 10.747775077819824 seconds 
+unsolvable
+
+[['2', '1', '5'], ['4', '7', '6'], ['8', '3', '0']] 
+Actions to do: ['Up', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Up', 'Right', 'Down', 'Down', 'Left', 'Left', 'Up', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Right', 'Up', 'Up', 'Left', 'Left', 'Down', 'Down', 'Right', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Up']
+cost-to-goal: 54
+depth-to-goal: 54 
+nodes explored: 604
+Max. fringe size: 401 
+Fringe size: 400 
+running time: 0.03740668296813965 seconds 
+solvable
+
+[['8', '2', '0'], ['7', '3', '4'], ['5', '1', '6']] 
+Actions to do: ['Left', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Right', 'Up', 'Left', 'Up', 'Left', 'Down', 'Down', 'Right', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Up', 'Right', 'Right', 'Down', 'Left', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Left']
+cost-to-goal: 78
+depth-to-goal: 78 
+nodes explored: 611
+Max. fringe size: 415 
+Fringe size: 414 
+running time: 0.036978960037231445 seconds 
+solvable
+
+[['7', '8', '2'], ['1', '4', '5'], ['0', '6', '3']] 
+Actions to do: ['Right', 'Up', 'Left', 'Up', 'Right', 'Down', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Down', 'Right', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Up']
+cost-to-goal: 72
+depth-to-goal: 72 
+nodes explored: 641
+Max. fringe size: 427 
+Fringe size: 426 
+running time: 0.03797340393066406 seconds 
+solvable
+
