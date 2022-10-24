@@ -2,10 +2,10 @@ import sys
 import unittest
 import random
 
-sys.path.append("../")
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
 import agent
-
-sys.path.append("./Testing")
 from Testing.Checker import is_solvable
 import Testing.file_writer as file_writer
 
