@@ -144,9 +144,9 @@ def result(board, action, zero):
         return new_board
 
 
-def winner(board):
+def terminal(board):
     """
-    Returns the winner of the game, if there is one.
+    Returns True if game is over, False otherwise.
     """
     if (board[0][0] == "0" and board[0][1] == "1" and board[0][2] == "2"
             and board[1][0] == "3" and board[1][1] == "4" and board[1][2] == "5"
@@ -155,13 +155,6 @@ def winner(board):
         return True
     else:
         return False
-
-
-def terminal(board):
-    """
-    Returns True if game is over, False otherwise.
-    """
-    return winner(board)
 
 
 def get_empty_tile(state: State):
@@ -235,6 +228,8 @@ def allowed_action(i, j):
 class ManhattanDistance:
 
     def distance(self, index: str, x2, y2):
+        if int(index) == 0:
+            return 0
         x1 = int(int(index) / 3)
         y1 = int(index) % 3
         return abs(x1 - x2) + abs(y1 - y2)
@@ -250,6 +245,8 @@ class ManhattanDistance:
 class EuclidianDistance:
 
     def distance(self, index: str, x2, y2):
+        if int(index) == 0:
+            return 0
         x1 = int(int(index) / 3)
         y1 = int(index) % 3
         return math.sqrt(((x1 - x2) ** 2 + (y1 - y2) ** 2))
@@ -287,10 +284,11 @@ def DFS(board):
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
-        if winner(state.grid):
+        if terminal(state.grid):
             print_state_and_its_parent(state)
             stack, cost_and_depth, actions_to_solve = back_track(state)
-            return stack, cost_and_depth, actions_to_solve, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
+            return stack, cost_and_depth, actions_to_solve, len(visited_states), frontier.max_size, len(
+                frontier.frontier), max_depth, (time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
@@ -300,7 +298,8 @@ def DFS(board):
                 frontier.add(next_state)
                 frontier_set.add(next_state.stringFormat)
 
-    return None, math.inf, None, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
+    return None, math.inf, None, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (
+                time.time() - start)
 
 
 def BFS(board):
@@ -324,10 +323,11 @@ def BFS(board):
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
-        if winner(state.grid):
+        if terminal(state.grid):
             print_state_and_its_parent(state)
             stack, cost_and_depth, actions_to_solve = back_track(state)
-            return stack, cost_and_depth, actions_to_solve, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
+            return stack, cost_and_depth, actions_to_solve, len(visited_states), frontier.max_size, len(
+                frontier.frontier), max_depth, (time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
@@ -336,7 +336,8 @@ def BFS(board):
             if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
                 frontier.add(next_state)
                 frontier_set.add(next_state.stringFormat)
-    return None, math.inf, None, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (time.time() - start)
+    return None, math.inf, None, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (
+                time.time() - start)
 
 
 def AStar(board, function):
@@ -357,10 +358,11 @@ def AStar(board, function):
         frontier_set.remove(state.stringFormat)
         visited_states.add(state.stringFormat)
 
-        if winner(state.grid):
+        if terminal(state.grid):
             print_state_and_its_parent(state)
             stack, cost_and_depth, actions_to_solve = back_track(state)
-            return stack, cost_and_depth, actions_to_solve, len(visited_states), max_fringe_size, len(frontier), (time.time() - start)
+            return stack, cost_and_depth, actions_to_solve, len(visited_states), max_fringe_size, len(frontier), (
+                        time.time() - start)
 
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:

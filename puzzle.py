@@ -18,7 +18,6 @@ user_text = ""
 director = Director(screen, pygame, width, height)
 
 
-
 def start_menu():
     global screen, board, stack, begin, solvable, user_text
     # Draw title and label
@@ -34,11 +33,11 @@ def start_menu():
         if start_menu_event.type == pygame.KEYDOWN:
             if start_menu_event.key == pygame.K_BACKSPACE:
                 user_text = user_text[:-1]
-                time.sleep(0.2)
+                time.sleep(0.1)
 
             else:
                 user_text += start_menu_event.unicode
-                time.sleep(0.2)
+                time.sleep(0.1)
 
     director.start_menu_text_input(user_text)
 
@@ -48,18 +47,20 @@ def start_menu():
         start_mouse = pygame.mouse.get_pos()
         if solve_dfs_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
-            # start = time.time()
-            stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = ai.DFS(board)
-            ai.print_Res_fs(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time)
+            stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = ai.DFS(
+                board)
+            ai.print_Res_fs(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth,
+                            run_time)
             time.sleep(0.2)
             begin = True
             solvable = True
 
         elif solve_bfs_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
-            # start = time.time()
-            stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = ai.BFS(board)
-            ai.print_Res_fs(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time)
+            stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = ai.BFS(
+                board)
+            ai.print_Res_fs(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth,
+                            run_time)
             time.sleep(0.2)
             begin = True
             solvable = True
@@ -67,7 +68,8 @@ def start_menu():
         elif solve_astar_manhattan_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
             manhattan_distance = ai.ManhattanDistance()
-            stack, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time = ai.AStar(board, manhattan_distance)
+            stack, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time = ai.AStar(board,
+                                                                                                                 manhattan_distance)
             ai.print_Res_astar(cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time)
             time.sleep(0.2)
             begin = True
@@ -76,12 +78,12 @@ def start_menu():
         elif solve_astar_euclidean_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
             euclidean_distance = ai.EuclidianDistance()
-            stack, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time = ai.AStar(board, euclidean_distance)
+            stack, cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time = ai.AStar(board,
+                                                                                                                 euclidean_distance)
             ai.print_Res_astar(cost_and_depth, actions_to_solve, explored, max_fringe_size, fringe_size, run_time)
             time.sleep(0.2)
             begin = True
             solvable = True
-
 
 
 def gameplay():
@@ -93,9 +95,7 @@ def gameplay():
     # Draw step and undo buttons
     step_button = director.step_button()
     undo_button = director.undo_button()
-    # Find solution and get steps stack
-    # Check for AI move
-    # Check if step button is clicked
+
     gameplay_click, _, _ = pygame.mouse.get_pressed()
     if stack is None:
         solvable = False
@@ -163,7 +163,6 @@ while True:
 
     screen.fill((0, 0, 0))
 
-    # Let user start using the agent.
     if begin is False:
         start_menu()
 

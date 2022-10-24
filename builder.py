@@ -149,10 +149,12 @@ class BoardBuilder:
                 )
                 self.pygame.draw.rect(self.screen, self.font_color, rect, 3)
 
-                if self.board[i][j] != "":
+                if self.board[i][j] == "0":
+                    cell = self.font.render("", True, self.font_color)
+                else:
                     cell = self.font.render(self.board[i][j], True, self.font_color)
-                    cell_rect = cell.get_rect()
-                    cell_rect.center = rect.center
-                    self.screen.blit(cell, cell_rect)
+                cell_rect = cell.get_rect()
+                cell_rect.center = rect.center
+                self.screen.blit(cell, cell_rect)
                 row.append(rect)
             tiles.append(row)
