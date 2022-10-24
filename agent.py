@@ -2,10 +2,11 @@
 8 Puzzle Agent
 """
 import copy
-import sys
 import math
-from queue import PriorityQueue
+import sys
 import time
+from queue import PriorityQueue
+
 import heapdict
 
 EMPTY = ""
@@ -364,14 +365,18 @@ def AStar(board, function):
         set_of_actions, zero = actions(state.grid)
         for action in set_of_actions:
             next_state = State(result(state.grid, action, zero), state)
-            if dist + 1 < next_state.distance:
-                next_state.parent_state = state
-                next_state.distance = dist + 1
+            heuristic = calculateHeruistic(next_state, function)
+            
             if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
-                heuristic = calculateHeruistic(next_state, function)
                 frontier[next_state] = next_state.distance + heuristic
                 frontier_set.add(next_state.stringFormat)
                 max_fringe_size = max(max_fringe_size, len(frontier))
+            elif (next_state.stringFormat in frontier_set):
+                if dist + 1 < next_state.distance:
+                    next_state.parent_state = state
+                    next_state.distance = dist + 1
+                    frontier[next_state] = next_state.distance + heuristic
+
     return None, math.inf, None, len(visited_states), max_fringe_size, len(frontier), (time.time() - start)
 
 
