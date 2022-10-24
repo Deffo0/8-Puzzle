@@ -145,7 +145,7 @@ def result(board, action, zero):
 
 def winner(board):
     """
-    Returns the winner of the game, if there is one.
+    Returns True if game is over, False otherwise.
     """
     if (board[0][0] == "0" and board[0][1] == "1" and board[0][2] == "2"
             and board[1][0] == "3" and board[1][1] == "4" and board[1][2] == "5"
