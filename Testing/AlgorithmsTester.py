@@ -4,7 +4,7 @@ import unittest
 import random
 import agent
 from Testing.Checker import is_solvable
-import Testing.file_writer
+import Testing.file_writer as file_writer
 
 
 class MyTestCase(unittest.TestCase):
