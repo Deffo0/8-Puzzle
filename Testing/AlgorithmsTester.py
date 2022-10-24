@@ -33,7 +33,7 @@ class MyTestCase(unittest.TestCase):
         value = not (stack is None)
         expected = is_solvable(self.my_lin_board)
         file_writer.write_to_file_fs(self.state.grid, cost_and_depth, actions_to_solve, explored, fringe_max_size,
-                                     fringe_size, max_depth, run_time, expected)("./Tests/dfs_tests.txt")
+                                     fringe_size, max_depth, run_time, expected)("./Testing/Tests/dfs_tests.txt")
         self.assertEqual(value, expected)  # add assertion here
 
     def test_bfs(self):
@@ -42,7 +42,7 @@ class MyTestCase(unittest.TestCase):
         value = not (stack is None)
         expected = is_solvable(self.my_lin_board)
         file_writer.write_to_file_fs(self.state.grid, cost_and_depth, actions_to_solve, explored, fringe_max_size,
-                                     fringe_size, max_depth, run_time, expected)("./Tests/bfs_tests.txt")
+                                     fringe_size, max_depth, run_time, expected)("./Testing/Tests/bfs_tests.txt")
         self.assertEqual(value, expected)  # add assertion here
 
     def test_a_star_manhattan(self):
@@ -51,7 +51,7 @@ class MyTestCase(unittest.TestCase):
         value = not (stack is None)
         expected = is_solvable(self.my_lin_board)
         file_writer.write_to_file_star(self.state.grid, cost_and_depth, actions_to_solve, explored, max_fringe_size,
-                                       fringe_size, run_time, expected)("./Tests/a_star_manhattan_tests.txt")
+                                       fringe_size, run_time, expected)("./Testing/Tests/a_star_manhattan_tests.txt")
         self.assertEqual(value, expected)
 
     def test_a_star_euclidean(self):
@@ -60,7 +60,7 @@ class MyTestCase(unittest.TestCase):
         value = not (stack is None)
         expected = is_solvable(self.my_lin_board)
         file_writer.write_to_file_star(self.state.grid, cost_and_depth, actions_to_solve, explored, max_fringe_size,
-                                       fringe_size, run_time, expected)("./Tests/a_star_euclidean_tests.txt")
+                                       fringe_size, run_time, expected)("./Testing/Tests/a_star_euclidean_tests.txt")
 
         self.assertEqual(value, expected)
 
