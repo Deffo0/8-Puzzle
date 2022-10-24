@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../")
 def write_to_file_fs(grid, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time, expected):
     def get_file_name(path_name):
         file = open(path_name, 'a')
