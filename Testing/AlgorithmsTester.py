@@ -3,10 +3,11 @@ import unittest
 import random
 
 sys.path.append("../")
+import agent
 
+sys.path.append("./Testing")
 from Testing.Checker import is_solvable
 import Testing.file_writer as file_writer
-import agent
 
 
 class MyTestCase(unittest.TestCase):

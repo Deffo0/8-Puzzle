@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc80c8f6-1ddc-4ae9-9aa2-d3235d7d893f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/AlgorithmsTester.py" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/AlgorithmsTester.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Tests/a_star_euclidean_tests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Tests/a_star_euclidean_tests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Tests/a_star_manhattan_tests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Tests/a_star_manhattan_tests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Tests/bfs_tests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Tests/bfs_tests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Tests/dfs_tests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Tests/dfs_tests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/builder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puzzle.py" beforeDir="false" afterPath="$PROJECT_DIR$/puzzle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,13 +53,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ahmed\PycharmProjects\8-Puzzle\" />
       <recent name="C:\Users\ahmed\PycharmProjects\8-Puzzle\Utility" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.AlgorithmsTester">
+  <component name="RunManager" selected="Python.puzzle">
     <configuration name="AlgorithmsTester" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -75,17 +86,17 @@
       <method v="2" />
     </configuration>
     <configuration name="puzzle" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Assignment1_team" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\EL SAKR TECHNOLOGY\AppData\Local\Programs\Python\Python310\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\ahmed\PycharmProjects\pythonProject5\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/puzzle.py" />
       <option name="PARAMETERS" value="" />
@@ -140,6 +151,7 @@
       <workItem from="1666423629885" duration="116000" />
       <workItem from="1666457871636" duration="2731000" />
       <workItem from="1666543520151" duration="3548000" />
+      <workItem from="1666629445384" duration="1474000" />
     </task>
     <servers />
   </component>
@@ -160,9 +172,9 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Assignment1_team$puzzle.coverage" NAME="puzzle Coverage Results" MODIFIED="1666459992169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/8_Puzzle$AlgorithmsTester.coverage" NAME="AlgorithmsTester Coverage Results" MODIFIED="1666593441679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Testing" />
+    <SUITE FILE_PATH="coverage/8_Puzzle$AlgorithmsTester.coverage" NAME="AlgorithmsTester Coverage Results" MODIFIED="1666630938075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Testing" />
     <SUITE FILE_PATH="coverage/8_Puzzle$GUI.coverage" NAME="GUI Coverage Results" MODIFIED="1665513440936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Assignment1_team$.coverage" NAME=" Coverage Results" MODIFIED="1666546384575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Testing" />
-    <SUITE FILE_PATH="coverage/8_Puzzle$puzzle.coverage" NAME="puzzle Coverage Results" MODIFIED="1666342820627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/8_Puzzle$puzzle.coverage" NAME="puzzle Coverage Results" MODIFIED="1666630942917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

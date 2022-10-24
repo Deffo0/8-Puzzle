@@ -234,6 +234,8 @@ def allowed_action(i, j):
 class ManhattanDistance:
 
     def distance(self, index: str, x2, y2):
+        if int(index) == 0:
+            return 0
         x1 = int(int(index) / 3)
         y1 = int(index) % 3
         return abs(x1 - x2) + abs(y1 - y2)
@@ -249,6 +251,8 @@ class ManhattanDistance:
 class EuclidianDistance:
 
     def distance(self, index: str, x2, y2):
+        if int(index) == 0:
+            return 0
         x1 = int(int(index) / 3)
         y1 = int(index) % 3
         return math.sqrt(((x1 - x2) ** 2 + (y1 - y2) ** 2))
