@@ -48,7 +48,6 @@ def start_menu():
         start_mouse = pygame.mouse.get_pos()
         if solve_dfs_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
-            # start = time.time()
             stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = ai.DFS(board)
             ai.print_Res_fs(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time)
             time.sleep(0.2)
@@ -57,7 +56,6 @@ def start_menu():
 
         elif solve_bfs_button.collidepoint(start_mouse):
             board = ai.initial_state(user_text)
-            # start = time.time()
             stack, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time = ai.BFS(board)
             ai.print_Res_fs(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time)
             time.sleep(0.2)
@@ -93,9 +91,7 @@ def gameplay():
     # Draw step and undo buttons
     step_button = director.step_button()
     undo_button = director.undo_button()
-    # Find solution and get steps stack
-    # Check for AI move
-    # Check if step button is clicked
+    
     gameplay_click, _, _ = pygame.mouse.get_pressed()
     if stack is None:
         solvable = False
@@ -163,7 +159,6 @@ while True:
 
     screen.fill((0, 0, 0))
 
-    # Let user start using the agent.
     if begin is False:
         start_menu()
 
