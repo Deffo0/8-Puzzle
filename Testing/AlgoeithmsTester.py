@@ -1,8 +1,10 @@
+import sys
+sys.path.append("../")
 import unittest
 import random
 import agent
-from Checker import is_solvable
-import file_writer
+from Testing.Checker import is_solvable
+import Testing.file_writer
 
 
 class MyTestCase(unittest.TestCase):
@@ -52,5 +54,4 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(value, expected)
 
 
-# if __name__ == '__main__':
-#     unittest.main()
+
