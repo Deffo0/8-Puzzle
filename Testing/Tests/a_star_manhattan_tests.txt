@@ -209,3 +209,13 @@ Fringe size: 567
 running time: 0.03912520408630371 seconds 
 solvable
 
+[['1', '2', '8'], ['6', '4', '0'], ['3', '7', '5']] 
+Actions to do: ['Down', 'Left', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Up', 'Left', 'Left', 'Down', 'Down', 'Right', 'Right', 'Up', 'Left', 'Left', 'Up']
+cost-to-goal: 19
+depth-to-goal: 19 
+nodes explored: 437
+Max. fringe size: 273 
+Fringe size: 272 
+running time: 0.018946409225463867 seconds 
+solvable
+

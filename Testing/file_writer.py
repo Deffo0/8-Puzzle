@@ -1,14 +1,10 @@
-import sys
 import os
-
-current = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(current)
 
 
 def write_to_file_fs(grid, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth,
                      run_time, expected):
     def get_file_name(path_name):
-        file = open(path_name, 'a')
+        file = open(os.path.join(os.path.dirname(__file__), path_name), 'a')
         file.writelines(
             [f"{grid} \n", f"Actions to do: {actions_to_solve}\n", f"cost-to-goal: {cost_and_depth}\n",
              f"depth-to-goal: {cost_and_depth} \n",
