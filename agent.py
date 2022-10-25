@@ -12,20 +12,34 @@ import heapdict
 EMPTY = ""
 
 
+def getGrid(state : str): 
+    grid = []
+    ctr = 0
+    for i in range(3):
+        grid.append(list())
+        for j in range(3):
+            grid[i].append(state[ctr])
+            ctr += 1
+    return grid
+
+
 class State():
     """
     State of puzzle
     """
 
-    def __init__(self, grid, parent_state):
+    def __init__(self, state : str, grid):
         self.grid = grid
-        self.parent_state = parent_state
-        self.distance = 0
-        self.stringFormat = ""
-        for i in range(3):
-            for j in range(3):
-                self.stringFormat += self.grid[i][j]
+        self.stringState = state
+        self.distance = math.inf
+    
 
+def getStringFormat(grid):
+    stringFormat = ""
+    for i in range(3):
+        for j in range(3):
+            stringFormat += grid[i][j]
+    return stringFormat
 
 class StackFrontier:
     """
@@ -71,6 +85,16 @@ class QueueFrontier:
         return len(self.frontier) > 0
 
 
+#done
+def get_empty_tile(state: str):
+    grid = getGrid(state)
+    for i in range(0, 3):
+        for j in range(0, 3):
+            if grid[i][j] == "0":
+                return i, j
+    return -1, -1
+
+
 def empty_state():
     """
     Returns starting state of the board.
@@ -80,49 +104,35 @@ def empty_state():
             [EMPTY, EMPTY, EMPTY]]
 
 
-def initial_state(user_text):
-    """
-    Returns starting state of the board.
-    """
-    matrix = []
-    row = []
-    ctr = 0
-    if len(user_text) > 9:
-        sys.exit(0)
-    for num in list(user_text):
-        if ctr == 3:
-            ctr = 0
-            matrix.append(row)
-            row = []
-        row.append(num)
-        ctr += 1
-    matrix.append(row)
-    return matrix
+#done
+def moveBlank(grid, x1, y1, x2, y2):
+    stringFormat = ""
+    temp = grid[x2][y2]
+    grid[x2][y2] = '0'
+    grid[x1][y1] = temp
+    stringFormat = getStringFormat(grid)
+    temp = grid[x1][y1]
+    grid[x1][y1] = "0"
+    grid[x2][y2] = temp
+    return stringFormat
 
-
-def actions(board):
+#done
+def getNextStates(state : str):
     """
     Returns set of all possible actions (i, j) available on the board and the zero.
     """
-    possible_moves = set()
-    zero = tuple()
-    for i in range(0, 3):
-        for j in range(0, 3):
-            if board[i][j] == '0':
-                zero = (i, j)
-                if allowed_action(i - 1, j):
-                    possible_moves.add((i - 1, j))
-                if allowed_action(i + 1, j):
-                    possible_moves.add((i + 1, j))
-                if allowed_action(i, j - 1):
-                    possible_moves.add((i, j - 1))
-                if allowed_action(i, j + 1):
-                    possible_moves.add((i, j + 1))
-                break
-    if len(possible_moves) == 0:
-        return None
-    else:
-        return possible_moves, zero
+    states = []
+    grid = getGrid(state)
+    i, j = get_empty_tile(state)
+    if allowed_action(i - 1, j):
+        states.append(moveBlank(grid, i, j, i - 1, j))
+    if allowed_action(i + 1, j):
+        states.append(moveBlank(grid, i, j, i + 1, j))
+    if allowed_action(i, j - 1):
+        states.append(moveBlank(grid, i, j, i, j - 1))
+    if allowed_action(i, j + 1):
+        states.append(moveBlank(grid, i, j, i, j + 1))
+    return states
 
 
 def result(board, action, zero):
@@ -144,51 +154,44 @@ def result(board, action, zero):
         return new_board
 
 
+#done
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    if (board[0][0] == "0" and board[0][1] == "1" and board[0][2] == "2"
-            and board[1][0] == "3" and board[1][1] == "4" and board[1][2] == "5"
-            and board[2][0] == "6" and board[2][1] == "7" and board[2][2] == "8"):
-
-        return True
-    else:
-        return False
+    return board == "012345678"
 
 
-def get_empty_tile(state: State):
-    for i in range(0, 3):
-        for j in range(0, 3):
-            if state.grid[i][j] == "0":
-                return i, j
-    return -1, -1
 
-
-def detect_action(state):
+#done
+def detect_action(state, parent_state):
     """
         return: action used to move from a parent state to the given state
     """
     row_of_state, col_of_state = get_empty_tile(state)
-    row_of_parent_state, col_of_parent_state = get_empty_tile(state.parent_state)
+    row_of_parent_state, col_of_parent_state = get_empty_tile(parent_state)
     if row_of_state == row_of_parent_state:
         return "Right" if col_of_parent_state < col_of_state else "Left"
     return "Down" if row_of_parent_state < row_of_state else "Up"
 
 
-def back_track(state):
+#done
+def back_track(state : str, parent_map : dict):
     """
     :param state: Winner (final) state of the puzzle
     :return: Stack containing the parent chain starting from final state ending at initial state
     """
+
+    current_state = state
+        
     stack, stack_of_actions = [], []
-    stack.append(state)
-    parent = state.parent_state
-    while parent is not None:
-        stack_of_actions.append(detect_action(state))
-        stack.append(parent)
-        state = parent
-        parent = parent.parent_state
+    stack.append(State(current_state, getGrid(current_state)))
+
+    while(current_state != parent_map[current_state]):
+        stack_of_actions.append(detect_action(current_state, parent_map[current_state]))
+        stack.append(State(parent_map[current_state], getGrid(parent_map[current_state])))
+        current_state = parent_map[current_state]
+
     stack_of_actions.reverse()
     return stack, str(len(stack) - 1), stack_of_actions
 
@@ -205,15 +208,6 @@ def good_print(grid):
     print("\n", end="")
 
 
-def isPresent(state, list_of_states):
-    """
-    :param state: State of the puzzle
-    :param list_of_states: List to be searched in
-    :return: true if the state already exists in the list
-    """
-    print(any(l.grid == state.grid for l in list_of_states))
-    return any(l.grid == state.grid for l in list_of_states)
-
 
 def allowed_action(i, j):
     """
@@ -225,6 +219,7 @@ def allowed_action(i, j):
     return 0 <= i < 3 and 0 <= j < 3
 
 
+#done
 class ManhattanDistance:
 
     def distance(self, index: str, x2, y2):
@@ -234,14 +229,16 @@ class ManhattanDistance:
         y1 = int(index) % 3
         return abs(x1 - x2) + abs(y1 - y2)
 
-    def calculate(self, state: State):
+    def calculate(self, state: str):
+        grid = getGrid(state)
         sum = 0
         for i in range(3):
             for j in range(3):
-                sum += self.distance(state.grid[i][j], i, j)
+                sum += self.distance(grid[i][j], i, j)
         return sum
 
 
+#done
 class EuclidianDistance:
 
     def distance(self, index: str, x2, y2):
@@ -251,11 +248,12 @@ class EuclidianDistance:
         y1 = int(index) % 3
         return math.sqrt(((x1 - x2) ** 2 + (y1 - y2) ** 2))
 
-    def calculate(self, state: State):
+    def calculate(self, state: str):
+        grid = getGrid(state)
         sum = 0
         for i in range(3):
             for j in range(3):
-                sum += self.distance(state.grid[i][j], i, j)
+                sum += self.distance(grid[i][j], i, j)
         return sum
 
 
@@ -274,29 +272,35 @@ def DFS(board):
     frontier = StackFrontier()
     visited_states = set()
     frontier_set = set()
-    init_state = State(board, None)
+    parent_map = dict()
+    state_dist_dic = dict()
+    init_state = getStringFormat(board)
+    parent_map[init_state] = init_state
+    state_dist_dic[init_state] = 0
     frontier.add(init_state)
-    frontier_set.add(init_state.stringFormat)
+    frontier_set.add(init_state)
     max_depth = 0
     while frontier.not_empty():
         state = frontier.pop()
-        max_depth = max(max_depth, state.distance)
-        frontier_set.remove(state.stringFormat)
-        visited_states.add(state.stringFormat)
+        max_depth = max(state_dist_dic[state], max_depth)
 
-        if terminal(state.grid):
-            print_state_and_its_parent(state)
-            stack, cost_and_depth, actions_to_solve = back_track(state)
+        frontier_set.remove(state)
+        visited_states.add(state)
+
+        if terminal(state):
+            print_state_and_its_parent(state, parent_map[state])
+            stack, cost_and_depth, actions_to_solve = back_track(state, parent_map)
             return stack, cost_and_depth, actions_to_solve, len(visited_states), frontier.max_size, len(
                 frontier.frontier), max_depth, (time.time() - start)
 
-        set_of_actions, zero = actions(state.grid)
-        for action in set_of_actions:
-            next_state = State(result(state.grid, action, zero), state)
-            next_state.distance = state.distance + 1
-            if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
+        next_states = getNextStates(state)
+        for next_state in next_states:
+
+            if (not (next_state in visited_states)) and (not (next_state in frontier_set)):
+                state_dist_dic[next_state] = state_dist_dic[state] + 1
+                parent_map[next_state] = state
                 frontier.add(next_state)
-                frontier_set.add(next_state.stringFormat)
+                frontier_set.add(next_state)
 
     return None, math.inf, None, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (
                 time.time() - start)
@@ -313,29 +317,35 @@ def BFS(board):
     frontier = QueueFrontier()
     visited_states = set()
     frontier_set = set()
-    init_state = State(board, None)
+    parent_map = dict()
+    state_dist_dic = dict()
+    init_state = getStringFormat(board)
+    parent_map[init_state] = init_state
+    state_dist_dic[init_state] = 0
     frontier.add(init_state)
-    frontier_set.add(init_state.stringFormat)
+    frontier_set.add(init_state)
     max_depth = 0
     while frontier.not_empty():
         state = frontier.pop()
-        max_depth = max(state.distance, max_depth)
-        frontier_set.remove(state.stringFormat)
-        visited_states.add(state.stringFormat)
+        max_depth = max(state_dist_dic[state], max_depth)
+        frontier_set.remove(state)
+        visited_states.add(state)
 
-        if terminal(state.grid):
-            print_state_and_its_parent(state)
-            stack, cost_and_depth, actions_to_solve = back_track(state)
+        if terminal(state):
+            print_state_and_its_parent(state, parent_map[state])
+            stack, cost_and_depth, actions_to_solve = back_track(state, parent_map)
             return stack, cost_and_depth, actions_to_solve, len(visited_states), frontier.max_size, len(
                 frontier.frontier), max_depth, (time.time() - start)
 
-        set_of_actions, zero = actions(state.grid)
-        for action in set_of_actions:
-            next_state = State(result(state.grid, action, zero), state)
-            next_state.distance = state.distance + 1
-            if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
+        next_states = getNextStates(state)
+
+        for next_state in next_states:
+            if (not (next_state in visited_states)) and (not (next_state in frontier_set)):
+                state_dist_dic[next_state] = state_dist_dic[state] + 1
+                parent_map[next_state] = state
                 frontier.add(next_state)
-                frontier_set.add(next_state.stringFormat)
+                frontier_set.add(next_state)
+
     return None, math.inf, None, len(visited_states), frontier.max_size, len(frontier.frontier), max_depth, (
                 time.time() - start)
 
@@ -348,43 +358,47 @@ def AStar(board, function):
     frontier = heapdict.heapdict()
     visited_states = set()
     frontier_set = set()
-    init_state = State(board, None)
+    state_dist_dic = dict()
+    parent_map = dict()
+    init_state = getStringFormat(board)
+    parent_map[init_state] = init_state
+    state_dist_dic[init_state] = 0
     frontier[init_state] = calculateHeruistic(init_state, function)
-    frontier_set.add(init_state.stringFormat)
+    frontier_set.add(init_state)
     max_fringe_size = 0
     while len(frontier) > 0:
-        state, dist2 = frontier.popitem()
-        dist = state.distance
-        frontier_set.remove(state.stringFormat)
-        visited_states.add(state.stringFormat)
+        state, cost = frontier.popitem()
+        dist = state_dist_dic[state]
+        frontier_set.remove(state)
+        visited_states.add(state)
 
-        if terminal(state.grid):
-            print_state_and_its_parent(state)
-            stack, cost_and_depth, actions_to_solve = back_track(state)
+        if terminal(state):
+            print_state_and_its_parent(state, parent_map[state])
+            stack, cost_and_depth, actions_to_solve = back_track(state, parent_map)
             return stack, cost_and_depth, actions_to_solve, len(visited_states), max_fringe_size, len(frontier), (
                         time.time() - start)
 
-        set_of_actions, zero = actions(state.grid)
-        for action in set_of_actions:
-            next_state = State(result(state.grid, action, zero), state)
+        next_states = getNextStates(state)
+        for next_state in next_states:
             heuristic = calculateHeruistic(next_state, function)
-            
-            if (not (next_state.stringFormat in visited_states)) and (not (next_state.stringFormat in frontier_set)):
-                frontier[next_state] = next_state.distance + heuristic
-                frontier_set.add(next_state.stringFormat)
+            if (not (next_state in visited_states)) and (not (next_state in frontier_set)):
+                parent_map[next_state] = state
+                state_dist_dic[next_state] = dist + 1
+                frontier[next_state] = state_dist_dic[next_state] + heuristic
+                frontier_set.add(next_state)
                 max_fringe_size = max(max_fringe_size, len(frontier))
-            elif (next_state.stringFormat in frontier_set):
-                if dist + 1 < next_state.distance:
-                    next_state.parent_state = state
-                    next_state.distance = dist + 1
-                    frontier[next_state] = next_state.distance + heuristic
+            elif (next_state in frontier_set):
+                if dist + 1 < state_dist_dic[next_state]:
+                    parent_map[next_state] = state
+                    state_dist_dic[next_state] = dist + 1
+                    frontier[next_state] = state_dist_dic[next_state] + heuristic
 
     return None, math.inf, None, len(visited_states), max_fringe_size, len(frontier), (time.time() - start)
 
 
-def print_state_and_its_parent(state):
-    print(f"Goal State: {state.grid}")
-    print(f"Pre-Goal State: {state.parent_state.grid}")
+def print_state_and_its_parent(state, parent_state):
+    print(f"Goal State: {state}")
+    print(f"Pre-Goal State: {parent_state}")
 
 
 def print_Res_fs(cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, max_depth, run_time):
@@ -406,3 +420,5 @@ def print_Res_astar(cost_and_depth, actions_to_solve, explored, fringe_max_size,
     print(f"Max. fringe size: {fringe_max_size}")
     print(f"Fringe size: {fringe_size}")
     print(f"running time: {run_time} seconds")
+
+
