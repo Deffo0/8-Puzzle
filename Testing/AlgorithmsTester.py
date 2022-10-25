@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
                 board.append(row)
                 row = []
             lin_board.append(item)
-        self.state = agent.State(board, None)
+        self.state = agent.State(agent.getStringFormat(board),board)
         self.my_lin_board = lin_board
 
     def test_dfs(self):

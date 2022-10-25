@@ -3,19 +3,19 @@ Actions to do: None
 cost-to-goal: inf
 depth-to-goal: inf 
 nodes explored: 181440
-Max. fringe size: 19734 
+Max. fringe size: 20701
 Fringe size: 0 
-running time: 13.967428922653198 seconds 
+running time: 14.467554807662964 seconds
 unsolvable
 
 [['4', '6', '0'], ['7', '2', '8'], ['5', '3', '1']]
 Actions to do: ['Left', 'Down', 'Left', 'Down', 'Right', 'Up', 'Left', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Right', 'Up', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Down', 'Left', 'Up', 'Up', 'Right', 'Right', 'Down', 'Left', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Left']
-cost-to-goal: 60
-depth-to-goal: 60 
-nodes explored: 623
-Max. fringe size: 422 
-Fringe size: 421 
-running time: 0.06955504417419434 seconds 
+cost-to-goal: 26
+depth-to-goal: 26
+nodes explored: 5373
+Max. fringe size: 2903
+Fringe size: 2903
+running time: 0.30171775817871094 seconds
 solvable
 
 [['5', '3', '2'], ['8', '6', '4'], ['7', '1', '0']] 
@@ -29,13 +29,13 @@ running time: 11.409795761108398 seconds
 unsolvable
 
 [['3', '7', '5'], ['1', '8', '2'], ['6', '4', '0']] 
-Actions to do: ['Left', 'Up', 'Left', 'Up', 'Right', 'Down', 'Right', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Down', 'Left', 'Up', 'Right', 'Right', 'Up', 'Left', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Down', 'Right', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Up']
-cost-to-goal: 70
-depth-to-goal: 70 
-nodes explored: 624
-Max. fringe size: 422 
-Fringe size: 421 
-running time: 0.038460493087768555 seconds 
+Actions to do: ['Left', 'Up', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Right', 'Up', 'Left', 'Left']
+cost-to-goal: 22
+depth-to-goal: 22
+nodes explored: 1818
+Max. fringe size: 1066
+Fringe size: 1065
+running time: 0.11964869499206543 seconds
 solvable
 
 [['6', '1', '5'], ['0', '4', '8'], ['7', '3', '2']] 
