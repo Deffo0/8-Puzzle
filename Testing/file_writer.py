@@ -20,7 +20,7 @@ def write_to_file_fs(grid, cost_and_depth, actions_to_solve, explored, fringe_ma
 def write_to_file_star(grid, cost_and_depth, actions_to_solve, explored, fringe_max_size, fringe_size, run_time,
                        expected):
     def get_file_name(path_name):
-        file = open(path_name, 'a')
+        file = open(os.path.join(os.path.dirname(__file__), path_name), 'a')
         file.writelines(
             [f"{grid} \n", f"Actions to do: {actions_to_solve}\n", f"cost-to-goal: {cost_and_depth}\n",
              f"depth-to-goal: {cost_and_depth} \n",
