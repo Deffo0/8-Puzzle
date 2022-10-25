@@ -219,3 +219,14 @@ Max. depth: 11
 running time: 0.031914472579956055 seconds 
 solvable
 
+[['1', '0', '4'], ['2', '5', '7'], ['8', '6', '3']] 
+Actions to do: ['Down', 'Down', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Right', 'Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Up', 'Left', 'Left']
+cost-to-goal: 23
+depth-to-goal: 23 
+nodes explored: 101415
+Max. fringe size: 25133 
+Fringe size: 24716 
+Max. depth: 23 
+running time: 7.445427179336548 seconds 
+solvable
+
