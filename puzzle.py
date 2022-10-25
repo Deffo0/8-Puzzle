@@ -91,7 +91,7 @@ def gameplay():
     global board, stack, begin, solvable
     # Draw game board
     director.game_board(board)
-    the_end = ai.terminal(board)
+    the_end = ai.terminal(ai.getStringFormat(board))
 
 
     # Draw step and undo buttons

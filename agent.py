@@ -12,7 +12,7 @@ import heapdict
 EMPTY = ""
 
 
-def getGrid(state : str): 
+def getGrid(state: str):
     grid = []
     ctr = 0
     for i in range(3):
@@ -28,7 +28,7 @@ class State():
     State of puzzle
     """
 
-    def __init__(self, state : str, grid):
+    def __init__(self, state: str, grid):
         self.grid = grid
         self.stringState = state
         self.distance = math.inf
